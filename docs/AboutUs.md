@@ -9,15 +9,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Lim Zi Huan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/gluee003.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://www.comp.nus.edu.sg/~zihuan/)]
+[[github](https://github.com/gluee003)]
 
-* Role: Project Advisor
+* Role: Sweatshop Worker
 
 ### Jane Doe
 
