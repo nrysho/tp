@@ -26,6 +26,8 @@ public abstract class Contact {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
+     * Constructs a {@code Contact}.
+     * Forms the base for instantiating the Contact subclasses.
      * Every field must be present and not null.
      */
     public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
