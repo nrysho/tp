@@ -5,7 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.contact.Accommodation;
+import seedu.address.model.contact.Attraction;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Fnb;
 
 /**
  * Container for user visible messages.
@@ -42,8 +45,24 @@ public class Messages {
                 .append("; Email: ")
                 .append(contact.getEmail())
                 .append("; Address: ")
-                .append(contact.getAddress())
-                .append("; Tags: ");
+                .append(contact.getAddress());
+        if (contact instanceof Fnb) {
+            builder.append("; Halal Status: ")
+                    .append(((Fnb) contact).getHalalStatus());
+        }
+        if (contact instanceof Attraction) {
+            String openingHour = ((Attraction) contact).getOpeningHour().toString();
+            String closingHour = ((Attraction) contact).getClosingHour().toString();
+            builder.append("; Operating Hours: ")
+                    .append(openingHour)
+                    .append(" to ")
+                    .append(closingHour);
+        }
+        if (contact instanceof Accommodation) {
+            builder.append("; Stars: ")
+                    .append(((Accommodation) contact).getStars());
+        }
+        builder.append("; Tags: ");
         contact.getTags().forEach(builder::append);
         return builder.toString();
     }

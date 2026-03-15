@@ -1,5 +1,7 @@
 package seedu.address.model.contact;
 
+import static seedu.address.logic.parser.CliSyntax.TYPE_ACCOMMODATION;
+
 import java.util.Set;
 
 import seedu.address.logic.commands.EditCommand;
@@ -11,24 +13,14 @@ import seedu.address.model.tag.Tag;
  * Guarantees: default number of stars (THREE_STAR) if unspecified.
  */
 public class Accommodation extends Contact {
-    /**
-     * Represents number of stars of the accommodation.
-     */
-    public enum AccommodationStar {
-        ONE_STAR,
-        TWO_STAR,
-        THREE_STAR,
-        FOUR_STAR,
-        FIVE_STAR
-    }
-    private final AccommodationStar stars;
+    private final AccommodationStars stars;
 
     /**
      * Constructs an {@code Accommodation} contact with default number of stars (THREE_STAR).
      */
     public Accommodation(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        this.stars = AccommodationStar.THREE_STAR;
+        this.stars = new AccommodationStars("3");
     }
 
     /**
@@ -36,18 +28,18 @@ public class Accommodation extends Contact {
      * @param stars The number of stars of the accommodation.
      */
     public Accommodation(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                         AccommodationStar stars) {
+                         AccommodationStars stars) {
         super(name, phone, email, address, tags);
         this.stars = stars;
     }
 
-    public AccommodationStar getStars() {
+    public AccommodationStars getStars() {
         return stars;
     }
 
     @Override
     public String getType() {
-        return "Accommodation";
+        return TYPE_ACCOMMODATION;
     }
 
     /**
@@ -60,7 +52,7 @@ public class Accommodation extends Contact {
         Email updatedEmail = editAccommodationDescriptor.getEmail().orElse(getEmail());
         Address updatedAddress = editAccommodationDescriptor.getAddress().orElse(getAddress());
         Set<Tag> updatedTags = editAccommodationDescriptor.getTags().orElse(getTags());
-        AccommodationStar updatedStars = editAccommodationDescriptor.getStars().orElse(getStars());
+        AccommodationStars updatedStars = editAccommodationDescriptor.getStars().orElse(getStars());
 
         return new Accommodation(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedStars);
     }

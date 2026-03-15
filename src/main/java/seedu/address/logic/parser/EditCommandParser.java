@@ -3,11 +3,11 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLOSINGHOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLOSINGHOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ISHALAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENINGHOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENINGHOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -38,8 +38,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_ISHALAL, PREFIX_OPENINGHOURS,
-                        PREFIX_CLOSINGHOURS, PREFIX_STARS);
+                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_ISHALAL, PREFIX_OPENINGHOUR,
+                        PREFIX_CLOSINGHOUR, PREFIX_STARS);
 
         Index index;
 
@@ -70,13 +70,13 @@ public class EditCommandParser implements Parser<EditCommand> {
             editContactDescriptor.setHalal(ParserUtil.parseHalalStatus(
                     argMultimap.getValue(PREFIX_ISHALAL).get()));
         }
-        if (argMultimap.getValue(PREFIX_OPENINGHOURS).isPresent()) {
-            editContactDescriptor.setOpeningHours(ParserUtil.parseOpeningHours(
-                    argMultimap.getValue(PREFIX_OPENINGHOURS).get()));
+        if (argMultimap.getValue(PREFIX_OPENINGHOUR).isPresent()) {
+            editContactDescriptor.setOpeningHour(ParserUtil.parseOpeningHour(
+                    argMultimap.getValue(PREFIX_OPENINGHOUR).get()));
         }
-        if (argMultimap.getValue(PREFIX_CLOSINGHOURS).isPresent()) {
-            editContactDescriptor.setClosingHours(ParserUtil.parseClosingHours(
-                    argMultimap.getValue(PREFIX_CLOSINGHOURS).get()));
+        if (argMultimap.getValue(PREFIX_CLOSINGHOUR).isPresent()) {
+            editContactDescriptor.setClosingHour(ParserUtil.parseClosingHour(
+                    argMultimap.getValue(PREFIX_CLOSINGHOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_STARS).isPresent()) {
             editContactDescriptor.setStars(ParserUtil.parseAccommodationStars(

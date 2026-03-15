@@ -1,5 +1,7 @@
 package seedu.address.model.contact;
 
+import static seedu.address.logic.parser.CliSyntax.TYPE_ATTRACTION;
+
 import java.time.LocalTime;
 import java.util.Set;
 
@@ -12,48 +14,66 @@ import seedu.address.model.tag.Tag;
  * Guarantees: default operating hours (8am to 10pm) if unspecified.
  */
 public class Attraction extends Contact {
-    private final LocalTime openingHours;
-    private final LocalTime closingHours;
+    private final OpeningHour openingHour;
+    private final ClosingHour closingHour;
 
     /**
      * Constructs an {@code Attraction} contact with default operating hours (8am to 10pm).
      */
     public Attraction(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        this.openingHours = LocalTime.of(8, 0);
-        this.closingHours = LocalTime.of(22, 0);
+        this.openingHour = new OpeningHour("08:00");
+        this.closingHour = new ClosingHour("22:00");
+    }
+
+    /**
+     * Constructs an {@code Attraction} contact with default opening hour (8am).
+     */
+    public Attraction(Name name, Phone phone, Email email, Address address, Set<Tag> tags, ClosingHour closingHour) {
+        super(name, phone, email, address, tags);
+        this.openingHour = new OpeningHour("08:00");
+        this.closingHour = closingHour;
+    }
+
+    /**
+     * Constructs an {@code Attraction} contact with default closing hour (10pm).
+     */
+    public Attraction(Name name, Phone phone, Email email, Address address, Set<Tag> tags, OpeningHour openingHour) {
+        super(name, phone, email, address, tags);
+        this.openingHour = openingHour;
+        this.closingHour = new ClosingHour("22:00");
     }
 
     /**
      * Constructs an {@code Attraction} contact with specified operating hours.
-     * @param openingHours The opening hours of the attraction.
-     * @param closingHours The closing hours of the attraction.
+     * @param openingHour The opening hours of the attraction.
+     * @param closingHour The closing hours of the attraction.
      */
     public Attraction(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                         LocalTime openingHours, LocalTime closingHours) {
+                         OpeningHour openingHour, ClosingHour closingHour) {
         super(name, phone, email, address, tags);
-        this.openingHours = openingHours;
-        this.closingHours = closingHours;
+        this.openingHour = openingHour;
+        this.closingHour = closingHour;
     }
 
-    public LocalTime getOpeningHours() {
-        return openingHours;
+    public OpeningHour getOpeningHour() {
+        return openingHour;
     }
 
-    public LocalTime getClosingHours() {
-        return closingHours;
+    public ClosingHour getClosingHour() {
+        return closingHour;
     }
 
     /**
      * Returns the operating (opening to closing) hours of the attraction.
      */
     public LocalTime[] getOperatingHours() {
-        return new LocalTime[]{ this.openingHours, this.closingHours };
+        return new LocalTime[]{ this.openingHour.getOpeningHour(), this.closingHour.getClosingHour() };
     }
 
     @Override
     public String getType() {
-        return "Attraction";
+        return TYPE_ATTRACTION;
     }
 
     /**
@@ -66,10 +86,10 @@ public class Attraction extends Contact {
         Email updatedEmail = editAttractionDescriptor.getEmail().orElse(getEmail());
         Address updatedAddress = editAttractionDescriptor.getAddress().orElse(getAddress());
         Set<Tag> updatedTags = editAttractionDescriptor.getTags().orElse(getTags());
-        LocalTime updatedOpeningHours = editAttractionDescriptor.getOpeningHours().orElse(getOpeningHours());
-        LocalTime updatedClosingHours = editAttractionDescriptor.getClosingHours().orElse(getClosingHours());
+        OpeningHour updatedOpeningHour = editAttractionDescriptor.getOpeningHour().orElse(getOpeningHour());
+        ClosingHour updatedClosingHour = editAttractionDescriptor.getClosingHour().orElse(getClosingHour());
 
         return new Attraction(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                updatedOpeningHours, updatedClosingHours);
+                updatedOpeningHour, updatedClosingHour);
     }
 }

@@ -1,0 +1,65 @@
+package seedu.address.model.contact;
+
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
+/**
+ * Represents the Halal Status of an Fnb contact.
+ */
+public class HalalStatus {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Halal Status should only be 'true' or 'false (default if unspecified)'.";
+
+    /*
+     * The string must be 'true' or 'false' (case-insensitive).
+     */
+    public static final String VALIDATION_REGEX = "(?i)^(true|false)$";
+
+    public final boolean isHalal;
+
+    /**
+     * Constructs a {@code Halal Status}.
+     *
+     * @param isHalal A valid input string for Halal Status.
+     */
+    public HalalStatus(String isHalal) {
+        if (isHalal.isEmpty()) {
+            this.isHalal = false;
+        } else {
+            checkArgument(isValidHalalStatus(isHalal), MESSAGE_CONSTRAINTS);
+            this.isHalal = isHalal.equals("true");
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid Halal Status.
+     */
+    public static boolean isValidHalalStatus(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+
+    @Override
+    public String toString() {
+        return isHalal ? "Halal" : "Non-Halal";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof HalalStatus otherHalalStatus)) {
+            return false;
+        }
+
+        return isHalal == otherHalalStatus.isHalal;
+    }
+
+    @Override
+    public int hashCode() {
+        String isHalalString = isHalal ? "true" : "false";
+        return isHalalString.hashCode();
+    }
+}

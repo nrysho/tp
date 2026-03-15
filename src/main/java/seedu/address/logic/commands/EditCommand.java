@@ -2,17 +2,16 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLOSINGHOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLOSINGHOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ISHALAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENINGHOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENINGHOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -26,11 +25,14 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.contact.Accommodation;
+import seedu.address.model.contact.AccommodationStars;
 import seedu.address.model.contact.Address;
+import seedu.address.model.contact.ClosingHour;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
+import seedu.address.model.contact.HalalStatus;
 import seedu.address.model.contact.Name;
+import seedu.address.model.contact.OpeningHour;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -51,8 +53,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_ISHALAL + "HALAL STATUS (for FnB contacts)]..."
-            + "[" + PREFIX_OPENINGHOURS + "OPENING HOURS (for Attraction contacts)]"
-            + "[" + PREFIX_CLOSINGHOURS + "CLOSING HOURS (for Attraction contacts)]"
+            + "[" + PREFIX_OPENINGHOUR + "OPENING HOUR (for Attraction contacts)]"
+            + "[" + PREFIX_CLOSINGHOUR + "CLOSING HOUR (for Attraction contacts)]"
             + "[" + PREFIX_STARS + "STARS (for for Accommodations)]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -143,10 +145,10 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
-        private boolean isHalal;
-        private LocalTime openingHours;
-        private LocalTime closingHours;
-        private Accommodation.AccommodationStar stars;
+        private HalalStatus isHalal;
+        private OpeningHour openingHour;
+        private ClosingHour closingHour;
+        private AccommodationStars stars;
 
 
         public EditContactDescriptor() {}
@@ -162,8 +164,8 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setHalal(toCopy.isHalal);
-            setOpeningHours(toCopy.openingHours);
-            setClosingHours(toCopy.closingHours);
+            setOpeningHour(toCopy.openingHour);
+            setClosingHour(toCopy.closingHour);
             setStars(toCopy.stars);
         }
 
@@ -223,36 +225,36 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public Optional<Boolean> isHalal() {
-            return Optional.of(this.isHalal);
+        public Optional<HalalStatus> getHalalStatus() {
+            return Optional.ofNullable(this.isHalal);
         }
 
-        public void setHalal(boolean isHalal) {
+        public void setHalal(HalalStatus isHalal) {
             this.isHalal = isHalal;
         }
 
-        public Optional<LocalTime> getOpeningHours() {
-            return Optional.ofNullable(openingHours);
+        public Optional<OpeningHour> getOpeningHour() {
+            return Optional.ofNullable(openingHour);
         }
 
-        public void setOpeningHours(LocalTime openingHours) {
-            this.openingHours = openingHours;
+        public void setOpeningHour(OpeningHour openingHour) {
+            this.openingHour = openingHour;
         }
 
-        public Optional<LocalTime> getClosingHours() {
-            return Optional.ofNullable(closingHours);
+        public Optional<ClosingHour> getClosingHour() {
+            return Optional.ofNullable(closingHour);
         }
 
-        public void setClosingHours(LocalTime closingHours) {
-            this.closingHours = closingHours;
+        public void setClosingHour(ClosingHour closingHour) {
+            this.closingHour = closingHour;
         }
 
 
-        public Optional<Accommodation.AccommodationStar> getStars() {
+        public Optional<AccommodationStars> getStars() {
             return Optional.ofNullable(stars);
         }
 
-        public void setStars(Accommodation.AccommodationStar stars) {
+        public void setStars(AccommodationStars stars) {
             this.stars = stars;
         }
 
@@ -274,8 +276,8 @@ public class EditCommand extends Command {
                     && Objects.equals(address, otherEditContactDescriptor.address)
                     && Objects.equals(tags, otherEditContactDescriptor.tags)
                     && Objects.equals(isHalal, otherEditContactDescriptor.isHalal)
-                    && Objects.equals(openingHours, otherEditContactDescriptor.openingHours)
-                    && Objects.equals(closingHours, otherEditContactDescriptor.closingHours)
+                    && Objects.equals(openingHour, otherEditContactDescriptor.openingHour)
+                    && Objects.equals(closingHour, otherEditContactDescriptor.closingHour)
                     && Objects.equals(stars, otherEditContactDescriptor.stars);
         }
 
@@ -287,9 +289,9 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("tags", tags)
-                    .add("isHalal", isHalal)
-                    .add("openingHours", openingHours)
-                    .add("closingHours", closingHours)
+                    .add("halalStatus", isHalal)
+                    .add("openingHour", openingHour)
+                    .add("closingHour", closingHour)
                     .add("stars", stars)
                     .toString();
         }
