@@ -199,7 +199,9 @@ public class ParserUtil {
      * @throws ParseException if the given {@code accommodationStar} is invalid.
      */
     public static AccommodationStars parseAccommodationStars(String accommodationStar) throws ParseException {
-        requireNonNull(accommodationStar);
+        if (accommodationStar == null) {
+            return new AccommodationStars("");
+        }
         String trimmedAccommodationStar = accommodationStar.trim();
         if (!AccommodationStars.isValidAccommodationStars(trimmedAccommodationStar)) {
             throw new ParseException(AccommodationStars.MESSAGE_CONSTRAINTS);
