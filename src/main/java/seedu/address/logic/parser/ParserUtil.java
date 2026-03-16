@@ -148,9 +148,6 @@ public class ParserUtil {
      * @throws ParseException if the given {@code halalStatus} is invalid.
      */
     public static HalalStatus parseHalalStatus(String halalStatus) throws ParseException {
-        if (halalStatus == null) {
-            return new HalalStatus("");
-        }
         String trimmedHalalStatus = halalStatus.trim();
         if (!HalalStatus.isValidHalalStatus(trimmedHalalStatus)) {
             throw new ParseException(HalalStatus.MESSAGE_CONSTRAINTS);
@@ -165,9 +162,6 @@ public class ParserUtil {
      * @throws ParseException if the given {@code openingHour} is invalid.
      */
     public static OpeningHour parseOpeningHour(String openingHour) throws ParseException {
-        if (openingHour == null) {
-            return new OpeningHour("");
-        }
         String trimmedOpeningHour = openingHour.trim();
         if (!OpeningHour.isValidOpeningHour(trimmedOpeningHour)) {
             throw new ParseException(OpeningHour.MESSAGE_CONSTRAINTS);
@@ -182,9 +176,6 @@ public class ParserUtil {
      * @throws ParseException if the given {@code closingHour} is invalid.
      */
     public static ClosingHour parseClosingHour(String closingHour) throws ParseException {
-        if (closingHour == null) {
-            return new ClosingHour("");
-        }
         String trimmedClosingHour = closingHour.trim();
         if (!ClosingHour.isValidClosingHour(trimmedClosingHour)) {
             throw new ParseException(ClosingHour.MESSAGE_CONSTRAINTS);
@@ -199,9 +190,6 @@ public class ParserUtil {
      * @throws ParseException if the given {@code accommodationStar} is invalid.
      */
     public static AccommodationStars parseAccommodationStars(String accommodationStar) throws ParseException {
-        if (accommodationStar == null) {
-            return new AccommodationStars("");
-        }
         String trimmedAccommodationStar = accommodationStar.trim();
         if (!AccommodationStars.isValidAccommodationStars(trimmedAccommodationStar)) {
             throw new ParseException(AccommodationStars.MESSAGE_CONSTRAINTS);

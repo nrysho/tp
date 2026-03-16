@@ -52,18 +52,27 @@ public class AccommodationStars {
      * @param stars A valid input string for Accommodation Stars.
      */
     public AccommodationStars(String stars) {
-        if (stars.isEmpty()) {
-            this.stars = Stars.fromString("3");
-        } else {
-            checkArgument(isValidAccommodationStars(stars), MESSAGE_CONSTRAINTS);
-            this.stars = Stars.fromString(stars);
-        }
+        checkArgument(isValidAccommodationStars(stars), MESSAGE_CONSTRAINTS);
+        this.stars = Stars.fromString(stars);
+    }
+
+    /**
+     * Constructs an {@code Accommodation Stars}.
+     * Used for default case only.
+     *
+     * @param stars A valid input value for Accommodation Stars.
+     */
+    public AccommodationStars(Stars stars) {
+        this.stars = stars;
     }
 
     /**
      * Returns true if a given string is a valid accommodation star.
      */
     public static boolean isValidAccommodationStars(String test) {
+        if (test.isEmpty()) {
+            return false;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -23,6 +23,6 @@ public class CliSyntax {
     public static final String TYPE_PERSON = "person";
     public static final String TYPE_FNB = "fnb";
     public static final String TYPE_ATTRACTION = "attraction";
-    public static final String TYPE_ACCOMMODATION = "accommodation";
+    public static final String TYPE_ACCOMMODATION = "accomm";
     public static final List<String> VALID_TYPES = List.of(TYPE_PERSON, TYPE_FNB, TYPE_ATTRACTION, TYPE_ACCOMMODATION);
 }

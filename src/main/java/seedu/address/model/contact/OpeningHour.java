@@ -24,18 +24,17 @@ public class OpeningHour {
      * @param openingHour A valid input string for Opening Hour.
      */
     public OpeningHour(String openingHour) {
-        if (openingHour.isEmpty()) {
-            this.openingHour = LocalTime.parse("08:00");
-        } else {
-            checkArgument(isValidOpeningHour(openingHour), MESSAGE_CONSTRAINTS);
-            this.openingHour = LocalTime.parse(openingHour);
-        }
+        checkArgument(isValidOpeningHour(openingHour), MESSAGE_CONSTRAINTS);
+        this.openingHour = LocalTime.parse(openingHour);
     }
 
     /**
      * Returns true if a given string is a valid Opening Hour.
      */
     public static boolean isValidOpeningHour(String test) {
+        if (test.isEmpty()) {
+            return false;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

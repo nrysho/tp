@@ -9,7 +9,7 @@ import java.time.LocalTime;
  */
 public class ClosingHour {
     public static final String MESSAGE_CONSTRAINTS =
-            "Opening Hours should only be in a valid 24-hour format HH:mm (08:00 if unspecified).";
+            "Closing Hours should only be in a valid 24-hour format HH:mm (22:00 if unspecified).";
 
     /**
      * The string must be in a valid LocalTime format. (HH:mm)
@@ -24,18 +24,17 @@ public class ClosingHour {
      * @param closingHour A valid input string for Closing Hour.
      */
     public ClosingHour(String closingHour) {
-        if (closingHour.isEmpty()) {
-            this.closingHour = LocalTime.parse("22:00");
-        } else {
-            checkArgument(isValidClosingHour(closingHour), MESSAGE_CONSTRAINTS);
-            this.closingHour = LocalTime.parse(closingHour);
-        }
+        checkArgument(isValidClosingHour(closingHour), MESSAGE_CONSTRAINTS);
+        this.closingHour = LocalTime.parse(closingHour);
     }
 
     /**
      * Returns true if a given string is a valid Closing Hour.
      */
     public static boolean isValidClosingHour(String test) {
+        if (test.isEmpty()) {
+            return false;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

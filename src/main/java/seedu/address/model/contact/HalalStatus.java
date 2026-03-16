@@ -22,18 +22,17 @@ public class HalalStatus {
      * @param isHalal A valid input string for Halal Status.
      */
     public HalalStatus(String isHalal) {
-        if (isHalal.isEmpty()) {
-            this.isHalal = false;
-        } else {
-            checkArgument(isValidHalalStatus(isHalal), MESSAGE_CONSTRAINTS);
-            this.isHalal = isHalal.equals("true");
-        }
+        checkArgument(isValidHalalStatus(isHalal), MESSAGE_CONSTRAINTS);
+        this.isHalal = isHalal.equals("true");
     }
 
     /**
      * Returns true if a given string is a valid Halal Status.
      */
     public static boolean isValidHalalStatus(String test) {
+        if (test.isEmpty()) {
+            return false;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -46,21 +46,21 @@ public class Messages {
                 .append(contact.getEmail())
                 .append("; Address: ")
                 .append(contact.getAddress());
-        if (contact instanceof Fnb) {
+        if (contact instanceof Fnb fnb) {
             builder.append("; Halal Status: ")
-                    .append(((Fnb) contact).getHalalStatus());
+                    .append(fnb.getHalalStatus());
         }
-        if (contact instanceof Attraction) {
-            String openingHour = ((Attraction) contact).getOpeningHour().toString();
-            String closingHour = ((Attraction) contact).getClosingHour().toString();
+        if (contact instanceof Attraction attraction) {
+            String openingHour = attraction.getOpeningHour().toString();
+            String closingHour = attraction.getClosingHour().toString();
             builder.append("; Operating Hours: ")
                     .append(openingHour)
                     .append(" to ")
                     .append(closingHour);
         }
-        if (contact instanceof Accommodation) {
+        if (contact instanceof Accommodation accommodation) {
             builder.append("; Stars: ")
-                    .append(((Accommodation) contact).getStars());
+                    .append(accommodation.getStars());
         }
         builder.append("; Tags: ");
         contact.getTags().forEach(builder::append);

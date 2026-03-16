@@ -51,12 +51,12 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_ISHALAL + "HALAL STATUS (for FnB contacts)]..."
-            + "[" + PREFIX_OPENINGHOUR + "OPENING HOUR (for Attraction contacts)]"
-            + "[" + PREFIX_CLOSINGHOUR + "CLOSING HOUR (for Attraction contacts)]"
-            + "[" + PREFIX_STARS + "STARS (for for Accommodations)]"
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_ADDRESS + "ADDRESS] \n"
+            + "[" + PREFIX_ISHALAL + "HALAL STATUS (for FnB contacts)]... "
+            + "[" + PREFIX_OPENINGHOUR + "OPENING HOUR (for Attraction contacts)] \n"
+            + "[" + PREFIX_CLOSINGHOUR + "CLOSING HOUR (for Attraction contacts)] "
+            + "[" + PREFIX_STARS + "STARS (for for Accommodations)] "
+            + "[" + PREFIX_TAG + "TAG]... \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -173,7 +173,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags,
+                    isHalal, openingHour, closingHour, stars);
         }
 
         public void setName(Name name) {

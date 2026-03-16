@@ -20,7 +20,7 @@ public class Accommodation extends Contact {
      */
     public Accommodation(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        this.stars = new AccommodationStars("3");
+        this.stars = new AccommodationStars(AccommodationStars.Stars.THREE_STAR);
     }
 
     /**
