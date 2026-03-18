@@ -103,4 +103,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
+
+    /** Returns an unmodifiable biew of the filtered tour list */
+    ObservableList<Tour> getFilteredTourList();
+
+    /**
+     * Updates the filter of the filtered tour list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTourList(Predicate<Tour> predicate);
 }
