@@ -8,14 +8,14 @@ title: Bivago
 
 ![Ui](images/Ui.png)
 
-**Bivago is a desktop application that helps tour guides streamline the process involved in planning and executing new 
+**Bivago is a desktop application that helps tour guides streamline the process involved in planning and executing new
 group tours.**
-It helps them quickly look up contacts for attractions, hotels, restaurants and drivers before, during and after different types 
+It helps them quickly look up contacts for attractions, hotels, restaurants and drivers before, during and after different types
 of tours that the tour guides offer.
 
 * If you are interested in using Bivago, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.
   html#quick-start).
-* If you are interested about developing Bivago, the [**Developer Guide**](DeveloperGuide.html) is a good place to 
+* If you are interested about developing Bivago, the [**Developer Guide**](DeveloperGuide.html) is a good place to
   start.
 
 

@@ -7,10 +7,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.contact.Accommodation;
+import seedu.address.model.contact.AccommodationStars;
 import seedu.address.model.contact.Address;
+import seedu.address.model.contact.Attraction;
+import seedu.address.model.contact.ClosingHour;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
+import seedu.address.model.contact.Fnb;
+import seedu.address.model.contact.HalalStatus;
 import seedu.address.model.contact.Name;
+import seedu.address.model.contact.OpeningHour;
 import seedu.address.model.contact.Person;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
@@ -28,6 +35,10 @@ class JsonAdaptedContact {
     private final String phone;
     private final String email;
     private final String address;
+    private final String halalStatus;
+    private final String openingHour;
+    private final String closingHour;
+    private final String stars;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -37,7 +48,11 @@ class JsonAdaptedContact {
     public JsonAdaptedContact(@JsonProperty("type") String type,
                               @JsonProperty("name") String name, @JsonProperty("phone") String phone,
                               @JsonProperty("email") String email, @JsonProperty("address") String address,
-                              @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                              @JsonProperty("halalStatus") String halalStatus,
+                              @JsonProperty("openingHour") String openingHour,
+                              @JsonProperty("closingHour") String closingHour,
+                              @JsonProperty("stars") String stars) {
         this.type = type;
         this.name = name;
         this.phone = phone;
@@ -46,6 +61,10 @@ class JsonAdaptedContact {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.halalStatus = halalStatus;
+        this.openingHour = openingHour;
+        this.closingHour = closingHour;
+        this.stars = stars;
     }
 
     /**
@@ -60,6 +79,26 @@ class JsonAdaptedContact {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+
+        String halalStatus = null;
+        String openingHour = null;
+        String closingHour = null;
+        String stars = null;
+        if (source instanceof Fnb fnb) {
+            halalStatus = String.valueOf(fnb.getHalalStatus().isHalal);
+        }
+        if (source instanceof Attraction attraction) {
+            openingHour = attraction.getOpeningHour().toString();
+            closingHour = attraction.getClosingHour().toString();
+        }
+        if (source instanceof Accommodation accommodation) {
+            stars = accommodation.getStars().toString();
+        }
+
+        this.halalStatus = halalStatus;
+        this.openingHour = openingHour;
+        this.closingHour = closingHour;
+        this.stars = stars;
     }
 
     /**
@@ -112,6 +151,56 @@ class JsonAdaptedContact {
         if (type.equals(Person.class.getSimpleName())) {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, Collections.emptySet());
         }
+
+        if (type.equals(Fnb.class.getSimpleName())) {
+            if (halalStatus == null) {
+                throw new IllegalValueException(String.format(
+                        MISSING_FIELD_MESSAGE_FORMAT, HalalStatus.class.getSimpleName()));
+            }
+            if (!HalalStatus.isValidHalalStatus(halalStatus)) {
+                throw new IllegalValueException(HalalStatus.MESSAGE_CONSTRAINTS);
+            }
+            final HalalStatus modelHalalStatus = new HalalStatus(halalStatus);
+            return new Fnb(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelHalalStatus);
+        }
+
+        if (type.equals(Attraction.class.getSimpleName())) {
+            if (openingHour == null) {
+                throw new IllegalValueException(String.format(
+                        MISSING_FIELD_MESSAGE_FORMAT, OpeningHour.class.getSimpleName()));
+            }
+            if (!OpeningHour.isValidOpeningHour(openingHour)) {
+                throw new IllegalValueException(OpeningHour.MESSAGE_CONSTRAINTS);
+            }
+
+            if (closingHour == null) {
+                throw new IllegalValueException(String.format(
+                        MISSING_FIELD_MESSAGE_FORMAT, ClosingHour.class.getSimpleName()));
+            }
+            if (!ClosingHour.isValidClosingHour(closingHour)) {
+                throw new IllegalValueException(ClosingHour.MESSAGE_CONSTRAINTS);
+            }
+
+            final OpeningHour modelOpeningHour = new OpeningHour(openingHour);
+            final ClosingHour modelClosingHour = new ClosingHour(closingHour);
+
+            return new Attraction(modelName, modelPhone, modelEmail, modelAddress, modelTags,
+                    modelOpeningHour, modelClosingHour);
+        }
+
+        if (type.equals(Accommodation.class.getSimpleName())) {
+            if (stars == null) {
+                throw new IllegalValueException(String.format(
+                        MISSING_FIELD_MESSAGE_FORMAT, AccommodationStars.class.getSimpleName()));
+            }
+            if (!AccommodationStars.isValidAccommodationStars(stars)) {
+                throw new IllegalValueException(AccommodationStars.MESSAGE_CONSTRAINTS);
+            }
+
+            final AccommodationStars modelStars = new AccommodationStars(stars);
+            return new Accommodation(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelStars);
+        }
+
         throw new IllegalValueException(String.format(INVALID_FIELD_MESSAGE_FORMAT, type));
     }
 
