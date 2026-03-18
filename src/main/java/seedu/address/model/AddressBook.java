@@ -5,9 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.NotImplementedException;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
+import seedu.address.model.tour.Tour;
+import seedu.address.model.tour.UniqueTourList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +19,7 @@ import seedu.address.model.contact.UniqueContactList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueContactList contacts;
+    private final UniqueTourList tours;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         contacts = new UniqueContactList();
+        tours = new UniqueTourList();
     }
 
     public AddressBook() {}
@@ -49,12 +54,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the content of the tour list with {@code tours}.
+     * {@code tours} must not contain duplicate tours.
+     */
+    public void setTours(List<Tour> tours) {
+        this.tours.setTours(tours);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setContacts(newData.getContactList());
+        setTours(newData.getTourList());
     }
 
     //// contact-level operations
@@ -95,18 +109,50 @@ public class AddressBook implements ReadOnlyAddressBook {
         contacts.remove(key);
     }
 
+    //// tour-level operations
+
+    /**
+     * Returns true if a tour with the same identity as {@code tour} exists in the address book.
+     */
+    public boolean hasTour(Tour tour) {
+        requireNonNull(tour);
+        return tours.contains(tour);
+    }
+
+    /**
+     * Adds a tour to the address book.
+     * The tour must not already exist in the address book.
+     */
+    public void addTour(Tour tour) {
+        tours.add(tour);
+    }
+
+    /**
+     * Removes {@code tour} from this {@code AddressBook}.
+     * {@code tour} must exist in the address book.
+     */
+    public void removeTour(Tour tour) {
+        tours.remove(tour);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("contacts", contacts)
+                .add("tours", tours)
                 .toString();
     }
 
     @Override
     public ObservableList<Contact> getContactList() {
         return contacts.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Tour> getTourList() {
+        return tours.asUnmodifiableObservableList();
     }
 
     @Override
@@ -121,11 +167,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return contacts.equals(otherAddressBook.contacts);
+        return contacts.equals(otherAddressBook.contacts) && tours.equals(otherAddressBook.tours);
     }
 
     @Override
     public int hashCode() {
-        return contacts.hashCode();
+        throw new NotImplementedException("AddressBook::hashCode is not implemented yet. Need to account for tours.");
+        // return contacts.hashCode();
     }
 }

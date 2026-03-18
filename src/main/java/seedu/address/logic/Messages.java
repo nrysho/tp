@@ -9,6 +9,7 @@ import seedu.address.model.contact.Accommodation;
 import seedu.address.model.contact.Attraction;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Fnb;
+import seedu.address.model.tour.Tour;
 
 /**
  * Container for user visible messages.
@@ -67,6 +68,13 @@ public class Messages {
         builder.append("; Tags: ");
         contact.getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Formats the {@code tour} for display to the user.
+     */
+    public static String format(Tour tour) {
+        return tour.getTourName();
     }
 
 }
