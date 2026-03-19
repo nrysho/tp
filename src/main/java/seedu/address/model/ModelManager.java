@@ -128,6 +128,7 @@ public class ModelManager implements Model {
     @Override
     public void addTour(Tour tour) {
         addressBook.addTour(tour);
+        updateFilteredTourList(PREDICATE_SHOW_ALL_TOURS);
     }
 
     //=========== Filtered Contact List Accessors =============================================================
