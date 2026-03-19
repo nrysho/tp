@@ -41,7 +41,7 @@ public class Person extends Contact {
 
     @Override
     public List<String> getTypeSpecificDetails() {
-        return List.of();
+        return List.of(getToursString());
     }
 }
 

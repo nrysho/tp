@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.EditCommand.EditContactDescriptor;
@@ -87,14 +88,12 @@ public abstract class Contact {
      * Returns a string with all the associated tours of the contact.
      */
     public String getToursString() {
-        if (getTours().isEmpty()) {
-            return "";
-        } else {
-            final StringBuilder builder = new StringBuilder();
-            builder.append("Tours: ");
-            this.getTours().forEach(builder::append);
-            return builder.toString();
+        if (this.getTours().isEmpty()) {
+            return "Tours: None";
         }
+        return "Tours: " + getTours().stream()
+                .map(Tour::toString)
+                .collect(Collectors.joining(" | "));
     }
 
     /**

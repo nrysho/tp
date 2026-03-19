@@ -64,10 +64,15 @@ public class Messages {
             builder.append("; Stars: ")
                     .append(accommodation.getStars());
         }
-        builder.append("; Tours: ");
-        contact.getTours().forEach(builder::append);
-        builder.append("; Tags: ");
-        contact.getTags().forEach(builder::append);
+        builder.append("; Tours: ")
+                .append(contact.getTours().stream()
+                        .map(Tour::toString)
+                        .collect(Collectors.joining(" | ")));
+
+        builder.append("; Tags: ")
+                .append(contact.getTags().stream()
+                        .map(tag -> tag.tagName)
+                        .collect(Collectors.joining(", ")));
         return builder.toString();
     }
 
