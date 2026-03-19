@@ -22,6 +22,7 @@ public class Messages {
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_INVALID_TOUR_DISPLAYED_INDEX = "The tour index provided is invalid";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

@@ -23,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredContacts;
+    private final FilteredList<Tour> filteredTours;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredContacts = new FilteredList<>(this.addressBook.getContactList());
+        filteredTours = new FilteredList<>(this.addressBook.getTourList());
     }
 
     public ModelManager() {
@@ -143,6 +145,17 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Tour> getFilteredTourList() {
+        return filteredTours;
+    }
+
+    @Override
+    public void updateFilteredTourList(Predicate<Tour> predicate) {
+        requireNonNull(predicate);
+        filteredTours.setPredicate(predicate);
     }
 
     @Override
