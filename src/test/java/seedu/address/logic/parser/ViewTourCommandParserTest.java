@@ -6,9 +6,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ViewTourCommand;
-import seedu.address.model.contact.ContactIsInTourPredicate;
-import seedu.address.model.tour.Tour;
 
 public class ViewTourCommandParserTest {
 
@@ -21,14 +20,19 @@ public class ViewTourCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsViewTourCommand() {
-        ViewTourCommand expectedCommand =
-                new ViewTourCommand(new ContactIsInTourPredicate(new Tour("walking tour")));
+    public void parse_invalidArg_throwsParseException() {
+        assertParseFailure(parser, "notAnIndex",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTourCommand.MESSAGE_USAGE));
+    }
 
-        // no leading and trailing whitespaces
-        assertParseSuccess(parser, "walking tour", expectedCommand);
+    @Test
+    public void parse_validArgs_returnsViewTourCommand() {
+        ViewTourCommand expectedCommand = new ViewTourCommand(Index.fromOneBased(1));
+
+        // valid index
+        assertParseSuccess(parser, "1", expectedCommand);
 
         // leading and trailing whitespaces trimmed
-        assertParseSuccess(parser, "  walking tour  ", expectedCommand);
+        assertParseSuccess(parser, "  1  ", expectedCommand);
     }
 }

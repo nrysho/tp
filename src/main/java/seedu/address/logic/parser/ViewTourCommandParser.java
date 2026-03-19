@@ -2,10 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ViewTourCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.contact.ContactIsInTourPredicate;
-import seedu.address.model.tour.Tour;
 
 /**
  * Parses input arguments and creates a new ViewTourCommand object
@@ -19,15 +18,13 @@ public class ViewTourCommandParser implements Parser<ViewTourCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewTourCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new ViewTourCommand(index);
+        } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTourCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTourCommand.MESSAGE_USAGE), pe);
         }
-
-        Tour tour = new Tour(trimmedArgs);
-
-        return new ViewTourCommand(new ContactIsInTourPredicate(tour));
     }
 
 }
