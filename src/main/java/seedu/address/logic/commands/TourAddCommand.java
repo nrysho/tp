@@ -54,7 +54,7 @@ public class TourAddCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
+        if (!(other instanceof TourAddCommand)) {
             return false;
         }
 
