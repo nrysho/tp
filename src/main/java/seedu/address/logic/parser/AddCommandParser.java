@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.TYPE_ACCOMMODATION;
 import static seedu.address.logic.parser.CliSyntax.TYPE_ATTRACTION;
@@ -36,7 +35,6 @@ import seedu.address.model.contact.OpeningHour;
 import seedu.address.model.contact.Person;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tour.Tour;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -50,7 +48,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_TOUR, PREFIX_HALAL_STATUS, PREFIX_OPENING_HOUR,
+                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_HALAL_STATUS, PREFIX_OPENING_HOUR,
                         PREFIX_CLOSING_HOUR, PREFIX_STARS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
@@ -65,21 +63,20 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Set<Tour> tours = ParserUtil.parseTours(argMultimap.getAllValues(PREFIX_TOUR));
 
         Contact contact = null;
 
         // Create objects based on type of contact
         if (type.equals(TYPE_PERSON)) {
-            contact = new Person(name, phone, email, address, tagList, tours);
+            contact = new Person(name, phone, email, address, tagList, Set.of());
         }
 
         if (type.equals(TYPE_FNB)) {
             if (arePrefixesPresent(argMultimap, PREFIX_HALAL_STATUS)) {
                 HalalStatus isHalal = ParserUtil.parseHalalStatus(argMultimap.getValue(PREFIX_HALAL_STATUS).get());
-                contact = new Fnb(name, phone, email, address, tagList, isHalal, tours);
+                contact = new Fnb(name, phone, email, address, tagList, isHalal, Set.of());
             } else {
-                contact = new Fnb(name, phone, email, address, tagList, tours);
+                contact = new Fnb(name, phone, email, address, tagList, Set.of());
             }
         }
 
@@ -93,13 +90,13 @@ public class AddCommandParser implements Parser<AddCommand> {
                 closingHour = ParserUtil.parseClosingHour(argMultimap.getValue(PREFIX_CLOSING_HOUR).get());
             }
             if (openingHour == null && closingHour == null) {
-                contact = new Attraction(name, phone, email, address, tagList, tours);
+                contact = new Attraction(name, phone, email, address, tagList, Set.of());
             } else if (openingHour == null) {
-                contact = new Attraction(name, phone, email, address, tagList, closingHour, tours);
+                contact = new Attraction(name, phone, email, address, tagList, closingHour, Set.of());
             } else if (closingHour == null) {
-                contact = new Attraction(name, phone, email, address, tagList, openingHour, tours);
+                contact = new Attraction(name, phone, email, address, tagList, openingHour, Set.of());
             } else {
-                contact = new Attraction(name, phone, email, address, tagList, openingHour, closingHour, tours);
+                contact = new Attraction(name, phone, email, address, tagList, openingHour, closingHour, Set.of());
             }
         }
 
@@ -107,9 +104,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             if (arePrefixesPresent(argMultimap, PREFIX_STARS)) {
                 AccommodationStars stars = ParserUtil.parseAccommodationStars(
                         argMultimap.getValue(PREFIX_STARS).get());
-                contact = new Accommodation(name, phone, email, address, tagList, stars, tours);
+                contact = new Accommodation(name, phone, email, address, tagList, stars, Set.of());
             } else {
-                contact = new Accommodation(name, phone, email, address, tagList, tours);
+                contact = new Accommodation(name, phone, email, address, tagList, Set.of());
             }
         }
         return new AddCommand(contact);
