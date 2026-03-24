@@ -173,7 +173,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredContacts.equals(otherModelManager.filteredContacts);
+                && filteredContacts.equals(otherModelManager.filteredContacts)
+                && filteredTours.equals(otherModelManager.filteredTours);
     }
 
 }

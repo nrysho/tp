@@ -10,7 +10,8 @@ import java.util.Objects;
  * Represents a tour package, which is identified by its String name
  */
 public class Tour {
-    public static final String MESSAGE_CONSTRAINTS = "Tour names should not have special characters.";
+    public static final String MESSAGE_CONSTRAINTS = "Tour names should not have special characters,"
+            + " and should not be blank.";
     public static final String VALIDATION_REGEX = "^[A-Za-z0-9 ]+$";
 
     public final String tourName;

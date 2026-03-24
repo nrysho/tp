@@ -25,6 +25,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.tour.Tour;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
@@ -73,6 +74,9 @@ public class CommandTestUtil {
     public static final String VALID_OPENING_HOUR_ATTRACTION = "09:00";
     public static final String VALID_CLOSING_HOUR_ATTRACTION = "22:00";
     public static final String VALID_STARS_ACCOMMODATION = "4";
+
+    public static final String VALID_TOUR_NAME_JAMES = "Le Tour James";
+    public static final String VALID_TOUR_NAME_JAMES_JR = "Le Tour James Jr";
 
     public static final String TYPE_DESC_AMY = " " + PREFIX_TYPE + VALID_TYPE_AMY;
     public static final String TYPE_DESC_BOB = " " + PREFIX_TYPE + VALID_TYPE_BOB;
@@ -127,6 +131,11 @@ public class CommandTestUtil {
     public static final String INVALID_OPENING_HOUR_DESC = " " + PREFIX_OPENING_HOUR + "9am";
     public static final String INVALID_CLOSING_HOUR_DESC = " " + PREFIX_CLOSING_HOUR + "25:00";
     public static final String INVALID_STARS_DESC = " " + PREFIX_STARS + "6";
+
+    public static final String TOUR_NAME_DESC_JAMES = " " + PREFIX_NAME + VALID_TOUR_NAME_JAMES;
+    public static final String TOUR_NAME_DESC_JAMES_JR = " " + PREFIX_NAME + VALID_TOUR_NAME_JAMES_JR;
+
+    public static final String INVALID_TOUR_NAME_DESC = " " + PREFIX_NAME + "Le Tour James Sr.";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -215,6 +224,19 @@ public class CommandTestUtil {
         model.updateFilteredContactList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredContactList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the tour at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showTourAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTourList().size());
+
+        Tour tour = model.getFilteredTourList().get(targetIndex.getZeroBased());
+        model.updateFilteredTourList(t -> t.tourName.equals(tour.tourName));
+
+        assertEquals(1, model.getFilteredTourList().size());
     }
 
 }

@@ -4,8 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.TOUR_NAME_DESC_JAMES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TOUR_NAME_JAMES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TOUR;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,9 +25,12 @@ import seedu.address.logic.commands.contact.ListCommand;
 import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.tour.TourAddCommand;
+import seedu.address.logic.commands.tour.TourDeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.tour.Tour;
 import seedu.address.testutil.ContactUtil;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -86,6 +92,20 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_tourAdd() throws Exception {
+        Tour tour = new Tour(VALID_TOUR_NAME_JAMES);
+        TourAddCommand command = (TourAddCommand) parser.parseCommand(TourAddCommand.COMMAND_WORD + TOUR_NAME_DESC_JAMES);
+        assertEquals(new TourAddCommand(tour), command);
+    }
+
+    @Test
+    public void parseCommand_tourDelete() throws Exception {
+        TourDeleteCommand command = (TourDeleteCommand) parser.parseCommand(TourDeleteCommand.COMMAND_WORD
+                + " " + INDEX_FIRST_TOUR.getOneBased());
+        assertEquals(new TourDeleteCommand(INDEX_FIRST_TOUR), command);
     }
 
     @Test
