@@ -74,8 +74,10 @@ public class Fnb extends Contact {
         Set<Tag> updatedTags = editFnbDescriptor.getTags().orElse(getTags());
         HalalStatus updatedHalalStatus = editFnbDescriptor.getHalalStatus().orElse(getHalalStatus());
         Set<Tour> updatedTours = editFnbDescriptor.getTours().orElse(getTours());
+        FavoriteStatus updatedFavoriteStatus = editFnbDescriptor.getFavoriteStatus().orElse(getFavoriteStatus());
+
         return new Fnb(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                updatedHalalStatus, updatedTours);
+                updatedHalalStatus, updatedTours, updatedFavoriteStatus);
     }
 
     @Override

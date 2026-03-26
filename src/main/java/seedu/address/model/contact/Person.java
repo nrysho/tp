@@ -40,7 +40,8 @@ public class Person extends Contact {
         Set<Tour> updatedTours = editContactDescriptor.getTours().orElse(getTours());
         FavoriteStatus updatedFavoriteStatus = editContactDescriptor.getFavoriteStatus().orElse(getFavoriteStatus());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedTours);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedTours,
+                updatedFavoriteStatus);
     }
 
     @Override

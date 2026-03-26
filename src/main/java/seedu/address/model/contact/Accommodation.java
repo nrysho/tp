@@ -68,9 +68,11 @@ public class Accommodation extends Contact {
         Set<Tag> updatedTags = editAccommodationDescriptor.getTags().orElse(getTags());
         AccommodationStars updatedStars = editAccommodationDescriptor.getStars().orElse(getStars());
         Set<Tour> updatedTours = editAccommodationDescriptor.getTours().orElse(getTours());
+        FavoriteStatus updatedFavoriteStatus = editAccommodationDescriptor.getFavoriteStatus().orElse(
+                getFavoriteStatus());
 
         return new Accommodation(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedStars,
-                updatedTours);
+                updatedTours, updatedFavoriteStatus);
     }
 
     @Override

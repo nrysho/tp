@@ -171,14 +171,15 @@ class JsonAdaptedContact {
 
         final Set<Tour> modelTours = new HashSet<>(contactTours);
 
+        final FavoriteStatus modelFavoriteStatus;
         if (favoriteStatus == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, FavoriteStatus.class.getSimpleName()));
+            modelFavoriteStatus = new FavoriteStatus("false");
+        } else {
+            if (!FavoriteStatus.isValidFavoriteStatus(favoriteStatus)) {
+                throw new IllegalValueException(FavoriteStatus.MESSAGE_CONSTRAINTS);
+            }
+            modelFavoriteStatus = new FavoriteStatus(favoriteStatus);
         }
-        if (!FavoriteStatus.isValidFavoriteStatus(favoriteStatus)) {
-            throw new IllegalValueException(FavoriteStatus.MESSAGE_CONSTRAINTS);
-        }
-        final FavoriteStatus modelFavoriteStatus = new FavoriteStatus(favoriteStatus);
 
         if (type.equals(Person.class.getSimpleName())) {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelTours,
