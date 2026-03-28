@@ -35,27 +35,32 @@ management while conducting the tour as you can quickly view contact details on 
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have `Java 17` or above installed in your Computer.<br>
 **Windows users:** Follow the installation instructions
 [here](https://se-education.org/guides/tutorials/javaInstallationWindows.html).<br>
 **Mac users:** Follow the installation instructions
 [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
-**Mac users:** Follow the installation instructions
-[here](https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
+**Linux users:** Follow the installation instructions
+[here](https://se-education.org/guides/tutorials/javaInstallationLinux.html).<br>
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-W08-1/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for Bivago.
+3. Open a command terminal.<br>
+**Windows users:** Press `Win + R`, type `cmd` and press `Enter`.<br>
+**Mac users:** Press `Cmd + Space`, type `Terminal` and press `Enter`.<br>
+**Linux users:** Open Terminal from your applications menu.<br>
 
-4. Open a command terminal.
+4. Copy the file to the folder you want to use as the _home folder_ for Bivago.<br>
+**Windows users:** Type `copy Bivago.jar C:\path\to\your\folder` and press `Enter`.<br>
+**Mac/Linux users:** Type `cp Bivago.jar /path/to/your/folder` and press `Enter`.<br>
 
-6. Type `cd FILEPATH` to navigate to the folder you put the jar file in.
+5. Type `cd FILEPATH` and press `Enter` to navigate to the folder you put the jar file in.
 
-7. Type `java -jar Bivago.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+6. Type `java -jar Bivago.jar` command to run the application.<br>
+   A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-8. Type a command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
+7. Type a command in the command box and press `Enter` to execute it. e.g. typing **`help`** and pressing `Enter` will
    display the program usage instructions.<br>
    Some example commands you can try:
 
@@ -72,7 +77,7 @@ management while conducting the tour as you can quickly view contact details on 
 
 * `exit` : Exits the app.
 
-9. Refer to the [Features](#features) below for details of each command.
+8. Refer to the [Features](#features) below for details of each command.
 
 ---
 
