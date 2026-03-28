@@ -115,13 +115,13 @@ management while conducting the tour as you can quickly view contact details on 
 
 Shows a message explaining how to use the application.
 
-Format: `help`
+**Format:** `help`
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
-Format: `exit`
+**Format:** `exit`
 
 ### Saving the data
 
@@ -132,8 +132,8 @@ manually.
 
 Bivago data are saved automatically as a JSON file `[JAR file location]/data/bivago-data.json`.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-You are encouraged to make changes to the data using the commands provided by the app instead of manually editing the
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+Please make changes to the data using the commands provided by the app instead of manually editing the
  data file. If you make changes to the data file making its format invalid, Bivago will discard all data and start with
 an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the Bivago to behave in unexpected ways (e.g., if a value entered is outside of
@@ -148,8 +148,9 @@ Furthermore, certain edits can cause the Bivago to behave in unexpected ways (e.
 
 Adds a contact to the contact list.
 
-Format:
-`add type/TYPE n/NAME p/PHONE e/EMAIL a/ADDRESS [h/HALAL_STATUS] [o/OPENING_HOUR] [c/CLOSING_HOUR] [s/STARS] [t/TAG]…​`
+**Format:**
+`add type/TYPE n/NAME p/PHONE e/EMAIL a/ADDRESS [h/HALAL_STATUS] [o/OPENING_HOUR] [c/CLOSING_HOUR]
+ [s/STARS] [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
@@ -173,7 +174,7 @@ Fields that are not applicable to the specified contact type will be ignored.
 For example, `h/true` will not apply to `person` contacts.
 </div>
 
-Examples:
+**Example:**
 * `add type/person n/John Doe p/98765432 e/johnd@example.com a/311 Clementi Ave 2` : Adds a person contact named `John Doe` to the contact list.
 
 * `add type/fnb n/Nasi Lemak Stall p/91234567 e/fnb@example.com a/Market Street h/true` : Adds an F&B contact named `Nasi Lemak Stall` with halal status set to `true`.
@@ -186,7 +187,7 @@ Examples:
 
 Shows a list of all contacts in the contact list.
 
-Format: `list`
+**Format:** `list`
 
 
 ### Editing a contact : `edit`
@@ -204,7 +205,7 @@ Format:
 * When editing tags, existing tags are removed and replaced
 * To remove all tags, use `t/` with no value
 
-Examples:
+**Example:**
 * `edit 1 p/91234567 e/johndoe@example.com` : Edits the first contact by updating the phone number to `91234567` and email to `johndoe@example.com`.
 
 * `edit 2 n/New Name t/` : Edits the second contact by updating the name to `New Name` and clearing all existing tags.
@@ -213,7 +214,7 @@ Examples:
 
 Finds contacts whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+**Format:** `find KEYWORD [MORE_KEYWORDS]`
 
 * Case-insensitive (e.g. `john` matches `John`)
 * Order does not matter
@@ -221,7 +222,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Matches **full words only**
 * Returns contacts matching at least one keyword (OR search)
 
-Examples:
+**Example:**
 * `find John` : Finds and lists all contacts whose names contain `John`.
 
 * `find alex david` : Finds and lists all contacts whose names contain either `alex` or `david`.
@@ -230,12 +231,12 @@ Examples:
 
 Deletes the specified contact from the contact list.
 
-Format: `delete INDEX`
+**Format:** `delete INDEX`
 
 * Deletes the contact at the specified `INDEX`
 * Index must be a positive integer
 
-Examples:
+**Example:**
 * `delete 2` : Deletes the second contact shown in the current contact list.
 
 * `find John` followed by `delete 1` : Finds contacts with names containing `John`, then deletes the first contact from the search results.
@@ -248,26 +249,26 @@ Examples:
 
 Adds a tour package to the tour list.
 
-Format: `tour-add n/NAME`
+**Format:** `tour-add n/NAME`
 
-Examples:
+**Example:**
 * `tour-add n/Le Royal Tour` : Adds a tour named `Le Royal Tour` to the tour list.
 
 ### Listing tours: `tour-list`
 
 Shows all available tours in the tour list.
 
-Format: `tour-list`
+**Format:** `tour-list`
 
 ### Assigning a tour: `tour-assign`
 
 Assigns a contact to a tour.
 
-Format: `tour-assign CONTACT_INDEX tour/TOUR_INDEX`
+**Format:** `tour-assign CONTACT_INDEX tour/TOUR_INDEX`
 
 * Both indices must be positive integers
 
-Examples:
+**Example:**
 * `tour-assign 1 tour/2` : Assigns the first contact in the current contact list to the second tour in the current
 tour list.
 
@@ -275,11 +276,11 @@ tour list.
 
 Unassigns a contact from a tour.
 
-Format: `tour-unassign CONTACT_INDEX tour/TOUR_INDEX`
+**Format:** `tour-unassign CONTACT_INDEX tour/TOUR_INDEX`
 
 * Both indices must be positive integers
 
-Examples:
+**Example:**
 * `tour-unassign 3 tour/5` : Unassigns the third contact in the current contact list from the fifth tour in the current
   tour list.
 
@@ -287,16 +288,16 @@ Examples:
 
 Displays all contacts assigned to a specified tour.
 
-Format: `tour-view INDEX`
+**Format:** `tour-view INDEX`
 
-Examples:
+**Example:**
 * `tour-view 1` : Displays all contacts assigned to the first tour in the current tour list.
 
 ### Searching tours by name: `tour-find`
 
 Finds tours whose names contain any of the given keywords.
 
-Format: `tour-find KEYWORD [MORE_KEYWORDS]`
+**Format:** `tour-find KEYWORD [MORE_KEYWORDS]`
 
 * Case-insensitive (e.g. `foodie` matches `Foodie`)
 * Order does not matter
@@ -304,7 +305,7 @@ Format: `tour-find KEYWORD [MORE_KEYWORDS]`
 * Matches **full words only**
 * Returns tours matching at least one keyword (OR search)
 
-Examples:
+**Example:**
 * `tour-find Foodie` : Finds and lists all tours whose names contain `Foodie`.
 
 * `tour-find City Walking` : Finds and lists all tours whose names contain `City` or `Walking`.
@@ -313,9 +314,9 @@ Examples:
 
 Deletes a tour package from the tour list.
 
-Format: `tour-delete INDEX`
+**Format:** `tour-delete INDEX`
 
-Examples:
+**Example:**
 * `tour-delete 1` : Deletes the first tour shown in the current tour list.
 
 ---
