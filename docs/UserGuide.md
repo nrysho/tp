@@ -40,11 +40,11 @@ management while conducting the tour as you can quickly view contact details on 
 <summary>How to install?</summary>
 
 <b>Windows users:</b> Follow the installation instructions
-<a href=https://se-education.org/guides/tutorials/javaInstallationWindows.html>here</a>.<br>
+<a href="https://se-education.org/guides/tutorials/javaInstallationWindows.html">here</a>.<br>
 <b>Mac users:</b> Follow the installation instructions
-<a href=https://se-education.org/guides/tutorials/javaInstallationMac.html>here</a>.<br>
+<a href="https://se-education.org/guides/tutorials/javaInstallationMac.html">here</a>.<br>
 <b>Mac users:</b> Follow the installation instructions
-<a href=https://se-education.org/guides/tutorials/javaInstallationMac.html>here</a>.<br>
+<a href="https://se-education.org/guides/tutorials/javaInstallationMac.html">here</a>.<br>
 
 </details><br>
 
