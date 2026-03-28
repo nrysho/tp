@@ -56,7 +56,7 @@ management while conducting the tour as you can quickly view contact details on 
 
 5. Type `cd FILEPATH` and press `Enter` to navigate to the folder you put the jar file in.
 
-6. Type `java -jar Bivago.jar` command to run the application.<br>
+6. Type `java -jar Bivago.jar` command and press `Enter` to run the application.<br>
    A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
