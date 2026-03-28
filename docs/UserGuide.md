@@ -60,7 +60,7 @@ management while conducting the tour as you can quickly view contact details on 
    A window similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-7. Type a command in the command box and press `Enter` to execute it. e.g. typing **`help`** and pressing `Enter` will
+7. Type a command in the command box and press `Enter` to execute it. e.g. typing `help` and pressing `Enter` will
    display the program usage instructions.<br>
    Some example commands you can try:
 
@@ -97,7 +97,7 @@ management while conducting the tour as you can quickly view contact details on 
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. the parameters `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are equivalent.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) or
  parameters not specific to the contact type will be ignored.<br>
