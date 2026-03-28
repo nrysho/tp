@@ -174,7 +174,9 @@ Fields that are not applicable to the specified contact type will be ignored.
 For example, `h/true` will not apply to `person` contacts.
 </div>
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `add type/person n/John Doe p/98765432 e/johnd@example.com a/311 Clementi Ave 2` : Adds a person contact named `John Doe` to the contact list.
 
 * `add type/fnb n/Nasi Lemak Stall p/91234567 e/fnb@example.com a/Market Street h/true` : Adds an F&B contact named `Nasi Lemak Stall` with halal status set to `true`.
@@ -182,6 +184,8 @@ For example, `h/true` will not apply to `person` contacts.
 * `add type/attraction n/USS p/67891234 e/uss@example.com a/Sentosa o/09:00 c/21:00` : Adds an attraction named `USS` with operating hours from `09:00` to `21:00`.
 
 * `add type/accommodation n/Hotel 81 p/61234567 e/hotel@example.com a/Geylang s/4` : Adds an accommodation named `Hotel 81` with a `4`-star rating.
+
+</details>
 
 ### Listing all contacts : `list`
 
@@ -194,7 +198,7 @@ Shows a list of all contacts in the contact list.
 
 Edits an existing contact in the contact list.
 
-Format:
+**Format:**
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [h/HALAL_STATUS] [o/OPENING_HOUR] [c/CLOSING_HOUR] [s/STARS] [t/TAG]…​`
 
 * Edits the contact at the specified `INDEX`
@@ -205,10 +209,14 @@ Format:
 * When editing tags, existing tags are removed and replaced
 * To remove all tags, use `t/` with no value
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `edit 1 p/91234567 e/johndoe@example.com` : Edits the first contact by updating the phone number to `91234567` and email to `johndoe@example.com`.
 
 * `edit 2 n/New Name t/` : Edits the second contact by updating the name to `New Name` and clearing all existing tags.
+
+</details>
 
 ### Searching contacts by name: `find`
 
@@ -222,10 +230,14 @@ Finds contacts whose names contain any of the given keywords.
 * Matches **full words only**
 * Returns contacts matching at least one keyword (OR search)
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `find John` : Finds and lists all contacts whose names contain `John`.
 
 * `find alex david` : Finds and lists all contacts whose names contain either `alex` or `david`.
+
+</details>
 
 ### Deleting a contact : `delete`
 
@@ -236,10 +248,14 @@ Deletes the specified contact from the contact list.
 * Deletes the contact at the specified `INDEX`
 * Index must be a positive integer
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `delete 2` : Deletes the second contact shown in the current contact list.
 
 * `find John` followed by `delete 1` : Finds contacts with names containing `John`, then deletes the first contact from the search results.
+
+</details>
 
 ---
 
@@ -251,8 +267,12 @@ Adds a tour package to the tour list.
 
 **Format:** `tour-add n/NAME`
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `tour-add n/Le Royal Tour` : Adds a tour named `Le Royal Tour` to the tour list.
+
+</details>
 
 ### Listing tours: `tour-list`
 
@@ -268,9 +288,13 @@ Assigns a contact to a tour.
 
 * Both indices must be positive integers
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `tour-assign 1 tour/2` : Assigns the first contact in the current contact list to the second tour in the current
 tour list.
+
+</details>
 
 ### Unassigning a tour: `tour-unassign`
 
@@ -280,9 +304,13 @@ Unassigns a contact from a tour.
 
 * Both indices must be positive integers
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `tour-unassign 3 tour/5` : Unassigns the third contact in the current contact list from the fifth tour in the current
   tour list.
+
+</details>
 
 ### Viewing a tour: `tour-view`
 
@@ -290,8 +318,12 @@ Displays all contacts assigned to a specified tour.
 
 **Format:** `tour-view INDEX`
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `tour-view 1` : Displays all contacts assigned to the first tour in the current tour list.
+
+</details>
 
 ### Searching tours by name: `tour-find`
 
@@ -305,10 +337,14 @@ Finds tours whose names contain any of the given keywords.
 * Matches **full words only**
 * Returns tours matching at least one keyword (OR search)
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `tour-find Foodie` : Finds and lists all tours whose names contain `Foodie`.
 
 * `tour-find City Walking` : Finds and lists all tours whose names contain `City` or `Walking`.
+
+</details>
 
 ### Deleting a tour: `tour-delete`
 
@@ -316,8 +352,12 @@ Deletes a tour package from the tour list.
 
 **Format:** `tour-delete INDEX`
 
-**Example:**
+<details>
+<summary><b>Example:</b></summary>
+
 * `tour-delete 1` : Deletes the first tour shown in the current tour list.
+
+</details>
 
 ---
 
