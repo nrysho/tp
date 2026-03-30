@@ -56,7 +56,7 @@
     "address" : "1 Jalan Besar",
     "tags" : [ "Indian" ],
     "halalStatus" : "true",
-    "favoriteStatus" : "true"
+    "favoriteStatus" : "false"
   }, {
     "type" : "Attraction",
     "name" : "USS",
@@ -75,7 +75,7 @@
     "address" : "1 Hotel Drive",
     "tags" : [ "stay" ],
     "stars" : "4",
-    "favoriteStatus" : "true"
+    "favoriteStatus" : "false"
   }, {
     "type": "Person",
     "name" : "George Best",
