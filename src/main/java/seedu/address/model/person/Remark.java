@@ -1,6 +1,15 @@
 package seedu.address.model.person;
 
+/**
+ * Represents a Person's remark in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
+ */
 public class Remark {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Remarks can be any text (including empty)";
+
+    public static final String VALIDATION_REGEX = ".*";
+
     private final String value;
 
     /**
@@ -33,6 +42,10 @@ public class Remark {
 
         Remark otherRemark = (Remark) other;
         return value.equals(otherRemark.value);
+    }
+
+    public static boolean isValidRemark(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
