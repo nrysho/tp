@@ -65,4 +65,23 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if {@code s} represents an integer that is too large to be stored in an int.
+     * e.g. "2147483648", "9999999999"
+     * Will return false for any other non-null string input
+     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static boolean isPositiveOverflowNumber(String s) {
+        if (!s.matches("\\d+")) {
+            return false;
+        }
+        try {
+            Integer.parseInt(s);
+            return false;
+        } catch (NumberFormatException e) {
+            return true;
+        }
+    }
 }

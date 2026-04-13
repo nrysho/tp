@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_OVERFLOW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TOUR;
 
 import seedu.address.commons.core.index.Index;
@@ -33,6 +35,9 @@ public class TourUnassignCommandParser implements Parser<TourUnassignCommand> {
             Index tourIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TOUR).get());
             return new TourUnassignCommand(contactIndex, tourIndex);
         } catch (ParseException pe) {
+            if (pe.getMessage().equals(MESSAGE_INVALID_INDEX_OVERFLOW)) {
+                throw new ParseException(MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TourUnassignCommand.MESSAGE_USAGE), pe);
         }
