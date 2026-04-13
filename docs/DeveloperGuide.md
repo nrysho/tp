@@ -25,6 +25,15 @@ tweaked to accurately reflect current implementation. Namely in: `ContactClassDi
 `EditContactDescriptorClassDiagram.puml`, `FavouriteAddSequenceDiagram.puml`, `FavouriteViewSequenceDiagram.puml`
 * William: Usage of AI Tools (Open AI) as an extra layer of checks for bugs and typos.
 
+* Neryss: Usage of AI Tools (Open AI) to assist in extending tests to support ,
+  subsequently verified and tweaked accordingly. Namely in:
+* `JsonAdaptedContactTest`, `ModelManagerTest`, `TourDuplicateCommandParserTest`
+* `AddressBookParserTest`, `TourDuplicateCommandTest`, `AddCommandTest`
+* Neryss: Usage of AI Tools (Open AI) to assist in creating Plant UML diagrams which are subsequently verified and
+  tweaked to accurately reflect current implementation. Namely in: `UiClassDiagram.puml` and 
+* `UndoSequenceDiagram-Logic.puml`
+* Neryss: Usage of AI Tools (Open AI) as an extra layer of checks for bugs and typos.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
