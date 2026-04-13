@@ -1132,3 +1132,6 @@ By doing so, we can make the phone number data atomic for each contact, which in
 However, when the user closes and opens the app, the dividers are reset to their default configuration.<br>
 ![DefaultWindowPaneDividers](images/DefaultWindowPaneDividers.png)<br>
 We plan to make the app record the changes the user made to the dividers, and make these changes persistent across restarts.
+
+10. **Indicate currently applied filters for contact and tour lists**: Currently, after using the `find`, `tour-find`, `tour-view`, `favourite-view`, `tour-favourite-view` commands which filters the view of the contact and tour lists, there is no indication that the lists were filtered. If the user wants to find out how the lists have been filtered, they will have to rely on their memory of the commands they last entered.<br><br>
+To address this, we plan on adding an indicator which is always active, for each list, that tells the user what filters have been applied to the list. For example, if the last command which modified the contact list view was `find type/person`, the indicator would tell the user that the contact list is currently being filtered by `type/person`.
