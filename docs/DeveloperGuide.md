@@ -9,7 +9,6 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 * William: Usage of AI Tools (Open AI) to assist in extending tests to support different contact types and favourite contacts,
 subsequently verified and tweaked accordingly. Namely in:
 `FavouriteStatusTest.java`, `HalalStatusTest.java`,
