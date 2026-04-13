@@ -24,7 +24,7 @@ subsequently verified and tweaked accordingly. Namely in:
 tweaked to accurately reflect current implementation. Namely in: `ContactClassDiagram.puml`,
 `EditContactDescriptorClassDiagram.puml`, `FavouriteAddSequenceDiagram.puml`, `FavouriteViewSequenceDiagram.puml`
 * William: Usage of AI Tools (Open AI) as an extra layer of checks for bugs and typos.
-
+* Third party libraries/frameworks used: JavaFX, Jackson, JUnit 5
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -1077,3 +1077,58 @@ testers are expected to do more *exploratory* testing.
    1. Test case: delete `data/bivago-data.json` and relaunch the app.
 
       Expected: The app starts with the sample address book data and creates a new `bivago-data.json`.
+
+## **Appendix: Effort**
+
+### Difficulty & Challenges
+
+1. Understanding the existing AB3 architecture had to be done at the start to get a surface-level understanding.
+2. Deepening our understanding of AB3 had to be continuously done throughout the development process, as we write code that affects other components.
+3. Features could not be developed in isolation because changes to the model, parser, or storage components often had project-wide impact, requiring extra care.
+4. Increased complexity from supporting multiple contact types (Person, F&B, Attraction, Accommodation), each with distinct fields and constraints, with the original AB3 handles a single entity type Person
+5. Designing and maintaining a polymorphic model structure with the contact types introduced additional complexity in inheritance, validation, and storage.
+6. Parsing logic became more complex as commands needed to handle type-specific fields while remaining consistent in format and behavior.
+7. Testing effort increased significantly due to:
+   - Multiple contact types with different fields
+   - Edge cases for missing/invalid inputs for type-specific fields
+   - Ensuring correct serialization and deserialization of different types
+
+### Effort & Achievements
+
+1. Implemented a contact management solution with multiple types as well as a tour management solution, significantly extending the scope beyond AB3’s original design.
+2. Designed and integrated a favourites feature that works across contacts and tours, implemented as a field without interfering with existing logic.
+3. Updated the design of the UI to meet our solution's needs (both contact and tour management), as well as to reflect contacts or tours assigned as favourites.
+4. Identified and resolved bugs early through continuous testing and integration, reducing technical debt downstream.
+
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Accept non-alphanumeric characters in names**: Currently, only alphanumeric characters are allowed to be entered in name fields. We plan to make the name field accept certain non-alphanumeric characters, including but not limited to `/`, `-`, `'`. This accounts for names which include `s/o`, `d/o`, and names such as `O'Brien`, `Jean-Pierre`.
+
+2. **Accept non-English characters in names**: Currently, only alphanumeric characters are allowed to be entered in name fields. We plan to make the name field accept non-English characters, by accepting all Unicode characters classified as a letter. This accounts for names such as `Sergio Pérez`, `Nico Hülkenberg`.
+
+3. **Enhance `find` command to search by any field**: Currently, the `find` command only supports searching by contact type and by name. We plan to make the `find` command more powerful by allowing users to search by any other field, such as email, phone number, address, halal status, opening/closing hours, and star rating.
+
+4. **Enhance `find` command to match substrings**: Currently, the `find` command only matches against full words. We plan to make the `find` command more powerful by allowing users to specify whether to match against full words or match against substrings.
+
+5. **Enhance email field validation**: Currently, the email field validation is on the more permissive side, as we do not want to reject unusual but valid emails. As such, some unusual but invalid emails might be accepted. We plan to improve the email validation to be closer to RFC compliant, so that invalid emails will be more likely to be caught.<br>
+However, we would like to note that there are diminishing returns from strictly validating emails, and the foolproof method to validate emails is to actually send a test email.
+
+6. **Accept duplicate names**: Currently, each contact is uniquely identified by its name. As such, users are not allowed to add a contact that shares a name with an existing contact, or edit a contact's name into one that is used by another existing contact.<br><br>
+A workaround to this would be to add some additional text to the name, in order to disambiguate them. Some users may find this inconvenient, especially if they know a lot of people/entities with the same name.<br><br>
+To remedy this, we plan to improve the flexibility of the app by identifying each contact using a combination of fields, such as name, phone, and email.
+
+7. **Enhance phone number validation**: Currently, the validation for the phone number field is on the more permissive side, as we want to allow users to input additional information next to the phone number, or include the country code of the phone number. We also want to allow users to input multiple phone numbers in the same field. For example, we might expect the user to input `+65 6767 6767 (Office) | +65 9676 7676 (HP)`.<br><br>
+However, this makes the parsing and validation of each phone number challenging, as it is difficult to anticipate how the user will format the phone numbers. We plan to strengthen the validation of phone numbers by restricting the format of the input field. For example, we may make the user specify 3 parameters for each phone number, which are the country code, the phone number itself, and additional remarks about the phone number.<br>
+This will stricter validation will limit the user to only be able to input one phone number per contact. We restore the ability to add multiple phone numbers per contact through the next planned enhancement.
+
+8. **Allow multiple phone numbers in contacts**: Currently, we only provide a single phone number field per contact, which makes it difficult to validate phone number information. In order to support stronger validation, we plan to allow an arbitrary amount of phone number fields per contact. This can be implemented similarly to the tag system, where each contact can have multiple tags.<br>
+By doing so, we can make the phone number data atomic for each contact, which in combination with the above planned enhancement, will give users the flexibility to add multiple phone numbers to each contact, while ensuring each phone number is properly validated.
+
+9. **Record user preferences for window pane dividers**: Currently, the user preferences will record the overall window dimensions for the app. However, it will discard the changes the user made to the window pane dividers upon restart. For example, the user may have customised the dividers such that the console window pane and tour window pane are smaller.<br>
+![CustomisedWindowPaneDividers](images/CustomisedWindowPaneDividers.png)<br>
+However, when the user closes and opens the app, the dividers are reset to their default configuration.<br>
+![DefaultWindowPaneDividers](images/DefaultWindowPaneDividers.png)<br>
+We plan to make the app record the changes the user made to the dividers, and make these changes persistent across restarts.
