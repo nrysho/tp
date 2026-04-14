@@ -92,7 +92,6 @@ public class MainApp extends Application {
         } catch (DataLoadingException e) {
             String reason = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
             startupWarning = "WARNING: Data file could not be loaded due to invalid or tampered data.\n"
-                    + "Reason: " + reason + "\n"
                     + "The app has started with an empty contact list.";
             logger.warning(startupWarning);
             initialData = new AddressBook();

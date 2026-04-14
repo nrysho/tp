@@ -81,16 +81,10 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_failure() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CONTACT, new EditContactDescriptor());
-        Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
-                Messages.format(editedContact));
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NO_CHANGES);
     }
 
     @Test
@@ -98,11 +92,11 @@ public class EditCommandTest {
         Contact contactToEdit = model.getFilteredContactList().get(INDEX_FNB_CONTACT.getZeroBased());
 
         FnbBuilder halalFnbBuilder = (FnbBuilder) ContactBuilder.fromContact(contactToEdit);
-        halalFnbBuilder.withHalalStatus("true");
+        halalFnbBuilder.withHalalStatus("false");
         Contact editedContact = halalFnbBuilder.build();
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
-                .withHalalStatus("true")
+                .withHalalStatus("false")
                 .build();
         EditCommand editCommand = new EditCommand(INDEX_FNB_CONTACT, descriptor);
 
@@ -262,7 +256,8 @@ public class EditCommandTest {
                 Messages.format(editedContact));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
+        showContactAtIndex(expectedModel, INDEX_FIRST_CONTACT);
+        expectedModel.setContact(expectedModel.getFilteredContactList().get(0), editedContact);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

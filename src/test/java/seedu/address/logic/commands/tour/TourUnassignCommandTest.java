@@ -48,9 +48,10 @@ public class TourUnassignCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(contactToUnassign, contactToUnassign.withTourRemoved(tourToUnassign));
+        Contact updatedContact = expectedModel.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
 
         assertCommandSuccess(command, model,
-                String.format(TourUnassignCommand.MESSAGE_UNASSIGN_TOUR_SUCCESS, Messages.format(contactToUnassign)),
+                String.format(TourUnassignCommand.MESSAGE_UNASSIGN_TOUR_SUCCESS, Messages.format(updatedContact)),
                 expectedModel);
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.StringUtil.containsAlphabet;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLOSING_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -53,6 +54,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book";
+    public static final String MESSAGE_NO_ALPHABET_NAME_WARNING = "WARNING:"
+            + " The contact name does not contain any alphabets.\n";
 
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
 
@@ -80,7 +83,15 @@ public class AddCommand extends Command {
 
         assert model.hasContact(contactToAdd) : "Contact should have been added";
         logger.fine(String.format("Added contact: %s", contactToAdd));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(contactToAdd)));
+
+        String prefix = "";
+        if (!containsAlphabet(contactToAdd.getName().fullName)) {
+            prefix += MESSAGE_NO_ALPHABET_NAME_WARNING;
+        }
+        String overlapWarning = Messages.getFieldOverlapWarning(model, contactToAdd, null);
+        return new CommandResult(prefix
+                + String.format(MESSAGE_SUCCESS, Messages.format(contactToAdd))
+                + overlapWarning);
     }
 
     @Override

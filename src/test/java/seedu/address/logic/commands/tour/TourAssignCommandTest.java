@@ -47,9 +47,10 @@ public class TourAssignCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.assignTour(contactToAssign, tourToAssign);
+        Contact updatedContact = expectedModel.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
 
         assertCommandSuccess(command, model,
-                String.format(TourAssignCommand.MESSAGE_ASSIGN_TOUR_SUCCESS, Messages.format(contactToAssign)),
+                String.format(TourAssignCommand.MESSAGE_ASSIGN_TOUR_SUCCESS, Messages.format(updatedContact)),
                 expectedModel);
     }
 

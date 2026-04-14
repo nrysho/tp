@@ -20,6 +20,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tour.Tour;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -27,13 +28,17 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_TOUR = "L@ T&#r";
 
     private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_FIRST_NAME = "LeBron";
+    private static final String VALID_LAST_NAME = "James";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TOUR = "Le Walking Tour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -92,6 +97,14 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseName_validValueWithExtraWhitespaces_returnsNormalisedName() throws Exception {
+        String nameWithExtraWhitespace = WHITESPACE + VALID_FIRST_NAME
+                + "                  " + VALID_LAST_NAME + WHITESPACE;
+        Name expectedName = new Name(VALID_FIRST_NAME + " " + VALID_LAST_NAME);
+        assertEquals(expectedName, ParserUtil.parseName(nameWithExtraWhitespace));
     }
 
     @Test
@@ -207,5 +220,35 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseTour_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTour(null));
+    }
+
+    @Test
+    public void parseTour_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTour(INVALID_TOUR));
+    }
+
+    @Test
+    public void parseTour_validValueWithoutWhitespace_returnsTour() throws Exception {
+        Tour expectedTour = new Tour(VALID_TOUR);
+        assertEquals(expectedTour, ParserUtil.parseTour(VALID_TOUR));
+    }
+
+    @Test
+    public void parseTour_validValueWithWhitespace_returnsTrimmedTour() throws Exception {
+        String tourWithWhitespace = WHITESPACE + VALID_TOUR + WHITESPACE;
+        Tour expectedTour = new Tour(VALID_TOUR);
+        assertEquals(expectedTour, ParserUtil.parseTour(tourWithWhitespace));
+    }
+
+    @Test
+    public void parseTour_validValueWithExtraWhitespaces_returnsNormalisedTour() throws Exception {
+        String tourWithExtraWhitespace = WHITESPACE + VALID_TOUR + "                     " + VALID_TOUR + WHITESPACE;
+        Tour expectedTour = new Tour(VALID_TOUR + " " + VALID_TOUR);
+        assertEquals(expectedTour, ParserUtil.parseTour(tourWithExtraWhitespace));
     }
 }

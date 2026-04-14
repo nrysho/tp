@@ -9,7 +9,6 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 * William: Usage of AI Tools (Open AI) to assist in extending tests to support different contact types and favourite contacts,
 subsequently verified and tweaked accordingly. Namely in:
 `FavouriteStatusTest.java`, `HalalStatusTest.java`,
@@ -24,6 +23,26 @@ subsequently verified and tweaked accordingly. Namely in:
 tweaked to accurately reflect current implementation. Namely in: `ContactClassDiagram.puml`,
 `EditContactDescriptorClassDiagram.puml`, `FavouriteAddSequenceDiagram.puml`, `FavouriteViewSequenceDiagram.puml`
 * William: Usage of AI Tools (Open AI) as an extra layer of checks for bugs and typos.
+* Chen Yoong Shee: Usage of AI Tools (Open AI) to assist in extending tests to support tour find and tour list command,
+  subsequently verified and tweaked accordingly. Namely in:
+  `TourFindCommandTest.java`, `TourFindCommandParserTest.java`
+* Third party libraries/frameworks used: JavaFX, Jackson, JUnit 5
+
+
+* Reiner: Usage of AI Tools (Claude) to assist in extending tests for tour assign, unassign, and view features, as well as their related test files. All AI-generated code was subsequently verified and tweaked to ensure correctness and consistency with the rest of the codebase. Namely in:
+`TourAssignCommandTest.java`, `TourUnassignCommandTest.java`, `TourViewCommandTest.java`, `TourAssignCommandParserTest.java`, `TourUnassignCommandParserTest.java`, `TourViewCommandParserTest.java`
+* Reiner: Usage of AI Tools (Claude) to assist in creating Plant UML diagrams which are subsequently verified and
+tweaked to accurately reflect current implementation. Namely in: `TourAssignSequenceDiagram.puml`, `TourUnassignSequenceDiagram.puml`, `TourViewSequenceDiagram.puml`
+* Reiner: Usage of AI Tools (Claude) as an extra layer of checks for bugs and typos.
+
+* Neryss: Usage of AI Tools (Open AI) to assist in extending tests to support ,
+  subsequently verified and tweaked accordingly. Namely in:
+* `JsonAdaptedContactTest`, `ModelManagerTest`, `TourDuplicateCommandParserTest`
+* `AddressBookParserTest`, `TourDuplicateCommandTest`, `AddCommandTest`
+* Neryss: Usage of AI Tools (Open AI) to assist in creating Plant UML diagrams which are subsequently verified and
+  tweaked to accurately reflect current implementation. Namely in: `UiClassDiagram.puml` and 
+* `UndoSequenceDiagram-Logic.puml`
+* Neryss: Usage of AI Tools (Open AI) as an extra layer of checks for bugs and typos.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -216,7 +235,7 @@ Bivago supports assigning and unassigning contacts to tour packages, as well as 
 
 <img src="images/TourUnassignSequenceDiagram.png" width="600" />
 
-`TourViewCommand` performs a similar operation to `FindCommand`, making use of `ContactIsInTourPredicate` to filter the contact list to only those assigned to the specified tour. The tour list is first reset to show all tours so that the index lookup is not affected by any prior filtering.
+`TourViewCommand` performs a similar operation to `FindCommand`, making use of `ContactIsInTourPredicate` to filter the contact list to only those assigned to the specified tour. The tour index is resolved against the currently displayed tour list, consistent with how other commands treat displayed indices.
 
 <img src="images/TourViewSequenceDiagram.png" width="600" />
 
@@ -361,7 +380,7 @@ Priorities: High (must have) — `* * *`, Medium (nice to have) — `* *`, Low (
 | `*` | tour guide with affiliated contacts | link affiliated contacts (e.g. restaurant and nearby attraction) | remember partnership deals |
 | `*` | tour guide with affiliated contacts | rate my affiliated contacts | track service quality over time |
 | `*` | tour guide with affiliated contacts | add commission or discount information to contacts | remember special arrangements |
-| `*` | tour guide who conducts tours in various locations | search contacts by location/neighbourhood | find service providers near specific attractions |
+| `*` | tour guide who conducts tours in various locations | search contacts by location/neighbourhood | find service providers near specific attractions/location |
 | `*` | tour guide who prioritizes efficiency | filter contacts by availability | quickly find who's available for a specific date |
 | `*` | tour guide who conducts many tour packages | duplicate existing tours | quickly create similar tour packages without re-entering all details |
 | `*` | tour guide who has wrist problems | alias commands I frequently use | not have to type so much |
@@ -661,7 +680,9 @@ Priorities: High (must have) — `* * *`, Medium (nice to have) — `* *`, Low (
 2. Bivago creates a new tour with the given name and assigns all contacts from the original tour to it.
 3. Bivago confirms the new tour has been created.
 
-### Use Case: UC15 - Find Tour Package
+---
+
+### Use Case: UC16 - Find Tour Package
 
 **MSS**
 1. User requests to find tour packages using a search query.
@@ -680,7 +701,7 @@ Priorities: High (must have) — `* * *`, Medium (nice to have) — `* *`, Low (
 
 ---
 
-### Use Case: UC16 - List All Tour Packages
+### Use Case: UC17 - List All Tour Packages
 
 **MSS**
 1. User requests to list all tour packages.
@@ -696,7 +717,7 @@ Priorities: High (must have) — `* * *`, Medium (nice to have) — `* *`, Low (
 
 ---
 
-### Use Case: UC17 - Add a Tour Package to Favourite Tours
+### Use Case: UC18 - Add a Tour Package to Favourite Tours
 
 **MSS**
 1. User requests to add a tour to favourite tours using its index in the displayed list.
@@ -717,7 +738,7 @@ Priorities: High (must have) — `* * *`, Medium (nice to have) — `* *`, Low (
 
 ---
 
-### Use Case: UC18 - Remove a Tour Package from Favourite Tours
+### Use Case: UC19 - Remove a Tour Package from Favourite Tours
 
 **MSS**
 1. User requests to remove a tour from favourite tours using its index in the displayed list.
@@ -738,7 +759,7 @@ Priorities: High (must have) — `* * *`, Medium (nice to have) — `* *`, Low (
 
 ---
 
-### Use Case: UC19 - View Favourite Tours
+### Use Case: UC20 - View Favourite Tours
 
 **MSS**
 1. User requests to view favourite tours.
@@ -752,7 +773,6 @@ Priorities: High (must have) — `* * *`, Medium (nice to have) — `* *`, Low (
     - 2a1. Bivago displays an empty list indicating no favourite tours were found.
     - 2a2. Use case ends.
 
->>>>>>> master
 ---
 
 ## Non-Functional Requirements
@@ -1041,7 +1061,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: At least one tour marked as favourite tour.
 
     1. Test case: `tour-favourite-remove 1`<br>
-       Expected: Contact is unmarked as favourite (star removed in GUI). Contact details are updated in the data file.
+       Expected: Tour is unmarked as favourite (star removed in GUI). Tour details are updated in the data file.
 
     1. Test case: Missing fields (e.g. `tour-favourite-remove`)<br>
        Expected: Error message for invalid command format.
@@ -1077,3 +1097,61 @@ testers are expected to do more *exploratory* testing.
    1. Test case: delete `data/bivago-data.json` and relaunch the app.
 
       Expected: The app starts with the sample address book data and creates a new `bivago-data.json`.
+
+## **Appendix: Effort**
+
+### Difficulty & Challenges
+
+1. Understanding the existing AB3 architecture had to be done at the start to get a surface-level understanding.
+2. Deepening our understanding of AB3 had to be continuously done throughout the development process, as we write code that affects other components.
+3. Features could not be developed in isolation because changes to the model, parser, or storage components often had project-wide impact, requiring extra care.
+4. Increased complexity from supporting multiple contact types (Person, F&B, Attraction, Accommodation), each with distinct fields and constraints, with the original AB3 handles a single entity type Person
+5. Designing and maintaining a polymorphic model structure with the contact types introduced additional complexity in inheritance, validation, and storage.
+6. Parsing logic became more complex as commands needed to handle type-specific fields while remaining consistent in format and behavior.
+7. Testing effort increased significantly due to:
+   - Multiple contact types with different fields
+   - Edge cases for missing/invalid inputs for type-specific fields
+   - Ensuring correct serialization and deserialization of different types
+
+### Effort & Achievements
+
+1. Implemented a contact management solution with multiple types as well as a tour management solution, significantly extending the scope beyond AB3’s original design.
+2. Designed and integrated a favourites feature that works across contacts and tours, implemented as a field without interfering with existing logic.
+3. Updated the design of the UI to meet our solution's needs (both contact and tour management), as well as to reflect contacts or tours assigned as favourites.
+4. Identified and resolved bugs early through continuous testing and integration, reducing technical debt downstream.
+
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Accept non-alphanumeric characters in names**: Currently, only alphanumeric characters are allowed to be entered in name fields. We plan to make the name field accept certain non-alphanumeric characters, including but not limited to `/`, `-`, `'`. This accounts for names which include `s/o`, `d/o`, and names such as `O'Brien`, `Jean-Pierre`.
+
+2. **Accept non-English characters in names**: Currently, only alphanumeric characters are allowed to be entered in name fields. We plan to make the name field accept non-English characters, by accepting all Unicode characters classified as a letter. This accounts for names such as `Sergio Pérez`, `Nico Hülkenberg`.
+
+3. **Enhance `find` command to search by any field**: Currently, the `find` command only supports searching by contact type and by name. We plan to make the `find` command more powerful by allowing users to search by any other field, such as email, phone number, address, halal status, opening/closing hours, and star rating.
+
+4. **Enhance `find` command to match substrings**: Currently, the `find` command only matches against full words. We plan to make the `find` command more powerful by allowing users to specify whether to match against full words or match against substrings.
+
+5. **Enhance email field validation**: Currently, the email field validation is on the more permissive side, as we do not want to reject unusual but valid emails. As such, some unusual but invalid emails might be accepted. We plan to improve the email validation to be closer to RFC compliant, so that invalid emails will be more likely to be caught.<br><br>
+However, we would like to note that there are diminishing returns from strictly validating emails, and the foolproof method to validate emails is to actually send a test email.
+
+6. **Accept duplicate names**: Currently, each contact is uniquely identified by its name. As such, users are not allowed to add a contact that shares a name with an existing contact, or edit a contact's name into one that is used by another existing contact.<br>
+A workaround to this would be to add some additional text to the name, in order to disambiguate them. Some users may find this inconvenient, especially if they know a lot of people/entities with the same name.<br><br>
+To remedy this, we plan to improve the flexibility of the app by identifying each contact using a combination of fields, such as name, phone, and email.
+
+7. **Enhance phone number validation**: Currently, the validation for the phone number field is on the more permissive side, as we want to allow users to input additional information next to the phone number, or include the country code of the phone number. We also want to allow users to input multiple phone numbers in the same field. For example, we might expect the user to input `+65 6767 6767 (Office) | +65 9676 7676 (HP)`.<br><br>
+However, this makes the parsing and validation of each phone number challenging, as it is difficult to anticipate how the user will format the phone numbers. We plan to strengthen the validation of phone numbers by restricting the format of the input field. For example, we may make the user specify 3 parameters for each phone number, which are the country code, the phone number itself, and additional remarks about the phone number.<br><br>
+This stricter validation will limit the user to only be able to input one phone number per contact. We restore the ability to add multiple phone numbers per contact through the next planned enhancement.
+
+8. **Allow multiple phone numbers in contacts**: Currently, we only provide a single phone number field per contact, which makes it difficult to validate phone number information. In order to support stronger validation, we plan to allow an arbitrary amount of phone number fields per contact. This can be implemented similarly to the tag system, where each contact can have multiple tags.<br><br>
+By doing so, we can make the phone number data atomic for each contact, which in combination with the above planned enhancement, will give users the flexibility to add multiple phone numbers to each contact, while ensuring each phone number is properly validated.
+
+9. **Record user preferences for window pane dividers**: Currently, the user preferences will record the overall window dimensions for the app. However, it will discard the changes the user made to the window pane dividers upon restart. For example, the user may have customised the dividers such that the console window pane and tour window pane are smaller.<br>
+![CustomisedWindowPaneDividers](images/CustomisedWindowPaneDividers.png)<br>
+However, when the user closes and opens the app, the dividers are reset to their default configuration.<br>
+![DefaultWindowPaneDividers](images/DefaultWindowPaneDividers.png)<br>
+We plan to make the app record the changes the user made to the dividers, and make these changes persistent across restarts.
+
+10. **Indicate currently applied filters for contact and tour lists**: Currently, after using the `find`, `tour-find`, `tour-view`, `favourite-view`, `tour-favourite-view` commands which filters the view of the contact and tour lists, there is no indication that the lists were filtered. If the user wants to find out how the lists have been filtered, they will have to rely on their memory of the commands they last entered.<br><br>
+To address this, we plan on adding an indicator which is always active, for each list, that tells the user what filters have been applied to the list. For example, if the last command which modified the contact list view was `find type/person`, the indicator would tell the user that the contact list is currently being filtered by `type/person`.

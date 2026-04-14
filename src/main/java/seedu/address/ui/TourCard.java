@@ -28,7 +28,9 @@ public class TourCard extends UiPart<Region> {
         this.tour = tour;
         id.setText(displayedIndex + ". ");
         tourName.setText(tour.getTourName());
+        tourName.setWrapText(true);
         tourFavouriteStatus.setVisible(tour.isTourFavourite());
         tourFavouriteStatus.setManaged(tour.isTourFavourite());
+        tourFavouriteStatus.setWrapText(true);
     }
 }

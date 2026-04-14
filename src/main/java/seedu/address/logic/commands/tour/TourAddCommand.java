@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.tour;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.StringUtil.containsAlphabet;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.logging.Logger;
@@ -29,6 +30,8 @@ public class TourAddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New tour package added: %1$s";
     public static final String MESSAGE_DUPLICATE_TOUR = "This tour package already exists in the address book";
+    public static final String MESSAGE_NO_ALPHABET_TOUR_WARNING = "WARNING:"
+            + " The tour name does not contain any alphabets.\n";
 
     private static final Logger logger = LogsCenter.getLogger(TourAddCommand.class);
 
@@ -54,7 +57,11 @@ public class TourAddCommand extends Command {
 
         model.addTour(toAdd);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        String msg = "";
+        if (!containsAlphabet(toAdd.getTourName())) {
+            msg += MESSAGE_NO_ALPHABET_TOUR_WARNING;
+        }
+        return new CommandResult(String.format(msg + MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
     @Override
