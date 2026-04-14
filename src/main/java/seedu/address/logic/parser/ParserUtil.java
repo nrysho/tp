@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_OVERFLOW;
 import static seedu.address.commons.util.StringUtil.normaliseTrimmedName;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_OVERFLOW;
 import static seedu.address.logic.parser.CliSyntax.VALID_TYPES;
 
 import java.util.Collection;

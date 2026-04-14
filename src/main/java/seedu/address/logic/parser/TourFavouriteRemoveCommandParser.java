@@ -1,12 +1,12 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.favourite.TourFavouriteRemoveCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_INDEX_OVERFLOW;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.favourite.TourFavouriteRemoveCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new TourFavouriteRemoveCommand object

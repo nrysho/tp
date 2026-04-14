@@ -83,6 +83,9 @@ public class StringUtil {
         } catch (NumberFormatException e) {
             return true;
         }
+    }
+
+    /**
      * Returns true if {@code s} contains an alphabetical character.
      */
     public static boolean containsAlphabet(String s) {
