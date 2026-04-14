@@ -99,7 +99,7 @@ public class Tour {
             return true;
         }
         if (other instanceof Tour tour) {
-            return this.tourName.equals(tour.getTourName());
+            return this.tourName.equalsIgnoreCase(tour.getTourName());
         }
         return false;
     }
