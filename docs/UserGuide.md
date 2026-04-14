@@ -96,9 +96,13 @@ Refer to the [Features](#features) below for details of each command.
 * Parameters can be in any order.<br>
   e.g. the parameters `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are equivalent.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) or
- parameters not specific to the contact type will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) 
+  will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Parameters not specific to the contact type will cause the command to be rejected with an error message shown to 
+  the user.<br>
+  e.g. the parameter `h/HALAL_STATUS` is not applicable to a `type/person` contact, the add command will be rejected 
+  until a correction is made.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines
   as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -211,6 +215,7 @@ A contact can have any number of tags (including 0). Each tag must be at most 30
 * `e/EMAIL` — a valid email in the form `LOCAL-PART@DOMAIN`
 * `a/ADDRESS` — cannot be blank
 * `t/TAG` — only alphanumeric characters allowed, and must be at most 30 characters long
+* Invalid data in any field will cause the command to be rejected
 
 <details>
 <summary><b>Valid Email Rules:</b></summary>
@@ -245,7 +250,7 @@ A contact can have any number of tags (including 0). Each tag must be at most 30
 * **Accommodation contacts**: `[s/STARS]` — must be `1–5` (default: `3`)
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Important:**
-Fields that are not applicable to the specified contact type will be rejected.
+Having fields that are not applicable to the specified contact type will cause the command to be rejected.
 For example, `h/true` will not apply to `person` contacts.
 </div>
 
@@ -542,6 +547,17 @@ Creates a new tour with a specified name, and assigns all contacts from an exist
 * Index must be a positive integer
 * `NAME` must not already exist as a tour
 
+<details>
+<summary><b>Example:</b></summary>
+
+<ul>
+  <li><code>tour-duplicate 1 n/Le Royal Tour Copy</code>:
+  Creates a new tour named <code>Le Royal Tour Copy</code> with all contacts from the first tour assigned to 
+it.<br></li>
+</ul>
+
+</details>
+
 ### Adding tours to favourites: `tour-favourite-add`
 
 Adds a specified tour from the tour list as a favourite tour.
@@ -555,9 +571,6 @@ Adds a specified tour from the tour list as a favourite tour.
 <summary><b>Example:</b></summary>
 
 <ul>
-  <li><code>tour-duplicate 1 n/Le Royal Tour Copy</code> :
-  Creates a new tour named <code>Le Royal Tour Copy</code> with all contacts from the first tour assigned to it.</li>
-=======
   <li><code>tour-favourite-add 2</code> :
   Adds the second tour shown in the current tour list as a favourite tour.<br>
   <img src="images/TourFavouriteAddCommandExample.png" alt="TourFavouriteAddCommandExample"></li>
@@ -565,13 +578,13 @@ Adds a specified tour from the tour list as a favourite tour.
 
 </details>
 
-### Viewing favourite contacts: `tour-favourite-view`
+### Viewing favourite tours: `tour-favourite-view`
 
 Shows a list of all favourite tours in the tour list.
 
 **Format:** `tour-favourite-view`
 
-### Removing contacts from favourites: `tour-favourite-remove`
+### Removing tours from favourites: `tour-favourite-remove`
 
 Removes a specified tour as a favourite tour.
 
@@ -586,7 +599,6 @@ Removes a specified tour as a favourite tour.
 <ul>
   <li><code>tour-favourite-remove 1</code> :
   Removes the first tour shown in the current tour list as a favourite tour.</li>
->>>>>>> master
 </ul>
 
 </details>
@@ -629,15 +641,16 @@ Removes a specified tour as a favourite tour.
 
 ### Tour Management
 
-| Action                    | Command                                                                           | Summary                             |
-|---------------------------|-----------------------------------------------------------------------------------|-------------------------------------|
-| **Add**                   | `tour-add n/NAME` <br> e.g., `tour-add n/Le Royal Tour`                           | Adds a tour to the tour list        |
-| **Delete**                | `tour-delete INDEX` <br> e.g., `tour-delete 2`                                    | Deletes a tour from the tour list   |
-| **Assign**                | `tour-assign CONTACT_INDEX tour/TOUR_INDEX` <br> e.g., `tour-assign 1 tour/2`     | Assigns a contact to a tour         |
-| **Unassign**              | `tour-unassign CONTACT_INDEX tour/TOUR_INDEX` <br> e.g., `tour-unassign 3 tour/5` | Unassigns a contact from a tour     |
-| **View**                  | `tour-view INDEX` <br> e.g., `tour-view 1`                                        | Display contacts assigned to a tour |
-| **Find**                  | `tour-find KEYWORD [MORE_KEYWORDS]` <br> e.g., `tour-find City Walking`           | Filters the tour list               |
-| **List**                  | `tour-list`                                                                       | Lists all tours                     |
-| **Tour Favourite Add**    | `tour-favourite-add INDEX` <br> e.g., `tour-favourite-add 1`                      | Adds a tour to favourites           |
-| **Tour Favourite View**   | `tour-favourite-view`                                                             | Displays favourite tours            |
-| **Tour Favourite Remove** | `tourfavourite-remove INDEX` <br> e.g., `tour favourite-remove 2`                 | Removes a tour from favourites      |
+| Action                    | Command                                                                           | Summary                                                |
+|---------------------------|-----------------------------------------------------------------------------------|--------------------------------------------------------|
+| **Add**                   | `tour-add n/NAME` <br> e.g., `tour-add n/Le Royal Tour`                           | Adds a tour to the tour list                           |
+| **Delete**                | `tour-delete INDEX` <br> e.g., `tour-delete 2`                                    | Deletes a tour from the tour list                      |
+| **Assign**                | `tour-assign CONTACT_INDEX tour/TOUR_INDEX` <br> e.g., `tour-assign 1 tour/2`     | Assigns a contact to a tour                            |
+| **Unassign**              | `tour-unassign CONTACT_INDEX tour/TOUR_INDEX` <br> e.g., `tour-unassign 3 tour/5` | Unassigns a contact from a tour                        |
+| **View**                  | `tour-view INDEX` <br> e.g., `tour-view 1`                                        | Display contacts assigned to a tour                    |
+| **Find**                  | `tour-find KEYWORD [MORE_KEYWORDS]` <br> e.g., `tour-find City Walking`           | Filters the tour list                                  |
+| **List**                  | `tour-list`                                                                       | Lists all tours                                        |
+| **Tour Favourite Add**    | `tour-favourite-add INDEX` <br> e.g., `tour-favourite-add 1`                      | Adds a tour to favourites                              |
+| **Tour Favourite View**   | `tour-favourite-view`                                                             | Displays favourite tours                               |
+| **Tour Favourite Remove** | `tour-favourite-remove INDEX` <br> e.g., `tour-favourite-remove 2`                | Removes a tour from favourites                         |
+| **Tour Duplicate**        | `tour-duplicate INDEX n/NAME` <br> e.g., `tour-duplicate 1 n/Le Chantilly Tour`   | Duplicates content of an existing tour with a new name |

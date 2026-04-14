@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.tour;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.StringUtil.containsAlphabet;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class TourDuplicateCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Tour duplicated: %1$s";
     public static final String MESSAGE_DUPLICATE_TOUR = "This tour package already exists in the address book";
+    public static final String MESSAGE_NO_ALPHABET_TOUR_WARNING = "WARNING:"
+            + " The tour name does not contain any alphabets.\n";
 
     private static final Logger logger = LogsCenter.getLogger(TourDuplicateCommand.class);
 
@@ -69,7 +72,7 @@ public class TourDuplicateCommand extends Command {
 
         model.addTour(newTour);
 
-        List<Contact> contacts = new ArrayList<>(model.getFilteredContactList());
+        List<Contact> contacts = new ArrayList<>(model.getAddressBook().getContactList());
         for (Contact contact : contacts) {
             if (contact.isInTour(tourToDuplicate)) {
                 model.assignTour(contact, newTour);
@@ -77,7 +80,11 @@ public class TourDuplicateCommand extends Command {
         }
 
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(newTour)));
+        String msg = "";
+        if (!containsAlphabet(newTour.getTourName())) {
+            msg += MESSAGE_NO_ALPHABET_TOUR_WARNING;
+        }
+        return new CommandResult(String.format(msg + MESSAGE_SUCCESS, Messages.format(newTour)));
     }
 
     @Override

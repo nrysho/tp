@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.StringUtil.normaliseTrimmedName;
 import static seedu.address.logic.parser.CliSyntax.VALID_TYPES;
 
 import java.util.Collection;
@@ -76,7 +77,8 @@ public class ParserUtil {
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        String normalisedName = normaliseTrimmedName(trimmedName);
+        return new Name(normalisedName);
     }
 
     /**
@@ -161,7 +163,8 @@ public class ParserUtil {
         if (!Tour.isValidTourName(trimmedTour)) {
             throw new ParseException(Tour.MESSAGE_CONSTRAINTS);
         }
-        return new Tour(trimmedTour);
+        String normalisedTour = normaliseTrimmedName(trimmedTour);
+        return new Tour(normalisedTour);
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.contact;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.StringUtil.containsAlphabet;
 import static seedu.address.logic.Messages.MESSAGE_NON_APPLICABLE_FIELDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLOSING_HOUR;
@@ -74,6 +75,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
+    public static final String MESSAGE_NO_ALPHABET_NAME_WARNING = "WARNING:"
+            + " The contact name does not contain any alphabets.\n";
 
     private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
 
@@ -105,7 +108,11 @@ public class EditCommand extends Command {
         logger.fine(String.format("Edited contact from %s to %s", contactToEdit, editedContact));
 
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS, Messages.format(editedContact)));
+        String msg = "";
+        if (!containsAlphabet(editedContact.getName().fullName)) {
+            msg += MESSAGE_NO_ALPHABET_NAME_WARNING;
+        }
+        return new CommandResult(String.format(msg + MESSAGE_EDIT_CONTACT_SUCCESS, Messages.format(editedContact)));
     }
 
     /**
