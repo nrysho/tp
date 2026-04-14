@@ -29,6 +29,13 @@ tweaked to accurately reflect current implementation. Namely in: `ContactClassDi
   `TourFindCommandTest.java`, `TourFindCommandParserTest.java`
 * Third party libraries/frameworks used: JavaFX, Jackson, JUnit 5
 
+
+* Reiner: Usage of AI Tools (Claude) to assist in extending tests for tour assign, unassign, and view features, as well as their related test files. All AI-generated code was subsequently verified and tweaked to ensure correctness and consistency with the rest of the codebase. Namely in:
+`TourAssignCommandTest.java`, `TourUnassignCommandTest.java`, `TourViewCommandTest.java`, `TourAssignCommandParserTest.java`, `TourUnassignCommandParserTest.java`, `TourViewCommandParserTest.java`
+* Reiner: Usage of AI Tools (Claude) to assist in creating Plant UML diagrams which are subsequently verified and
+tweaked to accurately reflect current implementation. Namely in: `TourAssignSequenceDiagram.puml`, `TourUnassignSequenceDiagram.puml`, `TourViewSequenceDiagram.puml`
+* Reiner: Usage of AI Tools (Claude) as an extra layer of checks for bugs and typos.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -220,7 +227,7 @@ Bivago supports assigning and unassigning contacts to tour packages, as well as 
 
 <img src="images/TourUnassignSequenceDiagram.png" width="600" />
 
-`TourViewCommand` performs a similar operation to `FindCommand`, making use of `ContactIsInTourPredicate` to filter the contact list to only those assigned to the specified tour. The tour list is first reset to show all tours so that the index lookup is not affected by any prior filtering.
+`TourViewCommand` performs a similar operation to `FindCommand`, making use of `ContactIsInTourPredicate` to filter the contact list to only those assigned to the specified tour. The tour index is resolved against the currently displayed tour list, consistent with how other commands treat displayed indices.
 
 <img src="images/TourViewSequenceDiagram.png" width="600" />
 
@@ -365,7 +372,7 @@ Priorities: High (must have) — `* * *`, Medium (nice to have) — `* *`, Low (
 | `*` | tour guide with affiliated contacts | link affiliated contacts (e.g. restaurant and nearby attraction) | remember partnership deals |
 | `*` | tour guide with affiliated contacts | rate my affiliated contacts | track service quality over time |
 | `*` | tour guide with affiliated contacts | add commission or discount information to contacts | remember special arrangements |
-| `*` | tour guide who conducts tours in various locations | search contacts by location/neighbourhood | find service providers near specific attractions |
+| `*` | tour guide who conducts tours in various locations | search contacts by location/neighbourhood | find service providers near specific attractions/location |
 | `*` | tour guide who prioritizes efficiency | filter contacts by availability | quickly find who's available for a specific date |
 | `*` | tour guide who conducts many tour packages | duplicate existing tours | quickly create similar tour packages without re-entering all details |
 | `*` | tour guide who has wrist problems | alias commands I frequently use | not have to type so much |

@@ -33,9 +33,10 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addContact(validContact);
 
-        assertCommandSuccess(new AddCommand(validContact), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validContact)),
-                expectedModel);
+        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validContact))
+                + Messages.getFieldOverlapWarning(expectedModel, validContact, null);
+
+        assertCommandSuccess(new AddCommand(validContact), model, expectedMessage, expectedModel);
     }
 
     @Test

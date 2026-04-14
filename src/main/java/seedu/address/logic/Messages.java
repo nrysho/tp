@@ -1,10 +1,13 @@
 package seedu.address.logic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.Model;
 import seedu.address.model.contact.Accommodation;
 import seedu.address.model.contact.Attraction;
 import seedu.address.model.contact.Contact;
@@ -86,6 +89,49 @@ public class Messages {
      */
     public static String format(Tour tour) {
         return tour.getTourName();
+    }
+
+    /**
+     * Returns a warning message listing contacts that share the same phone, email, or address
+     * as {@code target}, excluding {@code excluded} (for edits, pass the original contact; for
+     * adds, pass null). Returns an empty string if no overlaps are found.
+     */
+    public static String getFieldOverlapWarning(Model model, Contact target, Contact excluded) {
+        List<String> warnings = new ArrayList<>();
+        List<Contact> samePhone = new ArrayList<>();
+        List<Contact> sameEmail = new ArrayList<>();
+        List<Contact> sameAddress = new ArrayList<>();
+
+        for (Contact other : model.getAddressBook().getContactList()) {
+            if (other.equals(excluded) || other.equals(target)) {
+                continue;
+            }
+            if (other.getPhone().equals(target.getPhone())) {
+                samePhone.add(other);
+            }
+            if (other.getEmail().equals(target.getEmail())) {
+                sameEmail.add(other);
+            }
+            if (other.getAddress().equals(target.getAddress())) {
+                sameAddress.add(other);
+            }
+        }
+
+        if (!samePhone.isEmpty()) {
+            warnings.add("Warning: phone matches existing contact(s): " + joinNames(samePhone));
+        }
+        if (!sameEmail.isEmpty()) {
+            warnings.add("Warning: email matches existing contact(s): " + joinNames(sameEmail));
+        }
+        if (!sameAddress.isEmpty()) {
+            warnings.add("Warning: address matches existing contact(s): " + joinNames(sameAddress));
+        }
+
+        return warnings.isEmpty() ? "" : "\n" + String.join("\n", warnings);
+    }
+
+    private static String joinNames(List<Contact> contacts) {
+        return contacts.stream().map(c -> c.getName().toString()).collect(Collectors.joining(", "));
     }
 
 }

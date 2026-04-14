@@ -84,11 +84,14 @@ public class AddCommand extends Command {
         assert model.hasContact(contactToAdd) : "Contact should have been added";
         logger.fine(String.format("Added contact: %s", contactToAdd));
 
-        String msg = "";
+        String prefix = "";
         if (!containsAlphabet(contactToAdd.getName().fullName)) {
-            msg += MESSAGE_NO_ALPHABET_NAME_WARNING;
+            prefix += MESSAGE_NO_ALPHABET_NAME_WARNING;
         }
-        return new CommandResult(String.format(msg + MESSAGE_SUCCESS, Messages.format(contactToAdd)));
+        String overlapWarning = Messages.getFieldOverlapWarning(model, contactToAdd, null);
+        return new CommandResult(prefix
+                + String.format(MESSAGE_SUCCESS, Messages.format(contactToAdd))
+                + overlapWarning);
     }
 
     @Override

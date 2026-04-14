@@ -254,6 +254,10 @@ Having fields that are not applicable to the specified contact type will cause t
 For example, `h/true` will not apply to `person` contacts.
 </div>
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+A warning is shown if the new contact's phone, email, or address matches another existing contact. The contact is still added — the warning is informational only.
+</div>
+
 <details>
 <summary><b>Example:</b></summary>
 
@@ -295,6 +299,8 @@ Edits an existing contact in the contact list.
 * Existing values will be overwritten
 * When editing tags, existing tags are removed and replaced
 * To remove all tags, use `t/` with no value
+* The edit is rejected if the new values are identical to the existing contact (no actual change)
+* A warning is shown if the edited phone, email, or address matches another contact
 
 <details>
 <summary><b>Example:</b></summary>
