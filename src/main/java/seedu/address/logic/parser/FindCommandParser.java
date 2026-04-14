@@ -35,7 +35,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         ContactTypePredicate typePredicate = ContactTypePredicate.ANY_TYPE_ALLOWED_PREDICATE;
         NameContainsKeywordsPredicate namePredicate = NameContainsKeywordsPredicate.ANY_NAME_ALLOWED_PREDICATE;
         if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
-            String type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+            String type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get().toLowerCase());
             typePredicate = new ContactTypePredicate(type);
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
