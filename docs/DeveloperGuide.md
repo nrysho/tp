@@ -9,7 +9,6 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 * William: Usage of AI Tools (Open AI) to assist in extending tests to support different contact types and favourite contacts,
 subsequently verified and tweaked accordingly. Namely in:
 `FavouriteStatusTest.java`, `HalalStatusTest.java`,
@@ -35,6 +34,15 @@ tweaked to accurately reflect current implementation. Namely in: `ContactClassDi
 * Reiner: Usage of AI Tools (Claude) to assist in creating Plant UML diagrams which are subsequently verified and
 tweaked to accurately reflect current implementation. Namely in: `TourAssignSequenceDiagram.puml`, `TourUnassignSequenceDiagram.puml`, `TourViewSequenceDiagram.puml`
 * Reiner: Usage of AI Tools (Claude) as an extra layer of checks for bugs and typos.
+
+* Neryss: Usage of AI Tools (Open AI) to assist in extending tests to support ,
+  subsequently verified and tweaked accordingly. Namely in:
+* `JsonAdaptedContactTest`, `ModelManagerTest`, `TourDuplicateCommandParserTest`
+* `AddressBookParserTest`, `TourDuplicateCommandTest`, `AddCommandTest`
+* Neryss: Usage of AI Tools (Open AI) to assist in creating Plant UML diagrams which are subsequently verified and
+  tweaked to accurately reflect current implementation. Namely in: `UiClassDiagram.puml` and 
+* `UndoSequenceDiagram-Logic.puml`
+* Neryss: Usage of AI Tools (Open AI) as an extra layer of checks for bugs and typos.
 
 --------------------------------------------------------------------------------------------------------------------
 
